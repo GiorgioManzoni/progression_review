@@ -25,6 +25,8 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+\newcommand{\peg}{P$\&$G }
+
 
 \begin{document}
 
@@ -35,12 +37,31 @@
 \date{ }
 \author{2017/2018 --- Giorgio Manzoni}
 \maketitle
-\abstract{In this document I report all the work done in my first year of the CDT PhD programme under the supervision of Peder Norberg and Carlton Baugh. The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric survey with the advantage of having 40 narrow band photometric filters which make the redshift precision comparable to a spectroscopic survey. In particular the long-term aim of my project is to test an innovative group finder, based on the Markov CLustering (MCL) technique, on the PAUS data. Running this group finder on the PAUS data, require first to have a deep understanding of the survey. This has been the direction of my efforts in my first year. I have been part of the validation process, analysing the redshift accuracy and choosing the radius to be used for the forced photometry in order to better choose the parent spectroscopic survey. Additionally I have built an empirical relation for the BPT diagram to be used as a prior for the SED fitting used to retrieve photometric redshifts. In order to deeply understand the nature of the data, last March I have been observing for 7 nights as part of the PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
+\abstract{Description of the work done in my first year of the CDT Phd programme, under the supervision of Peder Norberg and Carlton Baught. I'll first explain the already completed project and then my short and long-term aims. Those include... this in chapter 1 and that other in chapter 2...}
+
+\tableofcontents
+
+\section{Introduction}
+
+In this document I report all the work done in my first year of the CDT PhD programme under the supervision of Peder Norberg and Carlton Baugh. The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric survey with the advantage of having 40 narrow band photometric filters which make the redshift precision comparable to a spectroscopic survey. In particular the long-term aim of my project is to test an innovative group finder, based on the Markov CLustering (MCL) technique, on the PAUS data. Running this group finder on the PAUS data, require first to have a deep understanding of the survey. This has been the direction of my efforts in my first year. I have been part of the validation process, analysing the redshift accuracy and choosing the radius to be used for the forced photometry in order to better choose the parent spectroscopic survey. Additionally I have built an empirical relation for the BPT diagram to be used as a prior for the SED fitting used to retrieve photometric redshifts. In order to deeply understand the nature of the data, last March I have been observing for 7 nights as part of the PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
 
 As part of the CDT programme I have been involved in a two month team project with Procter $\&$ Gamble, between May and June. The project aimed to optimise the density of the laundry powder as a function of the numerous ingredients. We achieved this optimising an already known statistical tool named LASSO. The tools we developed can be easily used for a generic function with a high number of parameters. As a CDT I had to take part to some schools relating to Machine Learning (ML) and Artificial Intelligence (AI), the main ones being in Cardiff and London UCL.
 
-In early September I took part to a workshop in Teruel (Spain) related to Emission Line Galaxies (ELG). In this occasion, I had the opportunity to present the results of my master project, a work that made used of the VIPERS data, a spectroscopic survey with partial overlapping with PAUS. The good feedback I received pushed me to put some effort in finalising an advance draft of a VIPERS paper (that I attach to this document). What this paper needs is a fair comparison with simulations. To do this, my second supervisor Carlton is training me to use GALFORM and this has double benefits since the skills I am acquiring will be needed to create some mock catalogues to test the MCL group finder. }
+In early September I took part to a workshop in Teruel (Spain) related to Emission Line Galaxies (ELG). In this occasion, I had the opportunity to present the results of my master project, a work that made used of the VIPERS data, a spectroscopic survey with partial overlapping with PAUS. The good feedback I received pushed me to put some effort in finalising an advance draft of a VIPERS paper (that I attach to this document). What this paper needs is a fair comparison with simulations. To do this, my second supervisor Carlton is training me to use GALFORM and this has double benefits since the skills I am acquiring will be needed to create some mock catalogues to test the MCL group finder.
 
+
+\section{Completed projects}
+\subsection{Two months team project with Procter $\&$ Gamble (P$\&$G)}
+
+As part of the CDT Data Intensive activities, I have been involved in a two months team project in collaboration with Procter $\&$ Gamble. The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients($f_i = f_i(x_1, \cdots, x_{13})$). They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better ($d = \sum_i^N a_i f_i(x_j)$). A more quantitative approach would be to perform a $\chi^2$ minimisation but the problem is that the resulting best fit makes use of all the available base functions even in the case that physically the density function is just a linear combination of few of them. That's why we have chosen to use the Least Absolute Shrinkage and Selection Operator (LASSO) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameter favouring a fit with a small number of basic functions (explain better...)
+
+
+%case studies
+
+
+\section{Short-term projects}
+
+\section{Long-term and future projects}
 
 \bibliography{biblio}
 
