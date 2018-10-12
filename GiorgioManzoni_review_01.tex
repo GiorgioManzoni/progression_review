@@ -1,0 +1,49 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8x]{inputenc} 
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage[Sonny]{fncychap}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb} %to use \lesssim
+%\usepackage[]{fncychap}
+\usepackage{enumitem}%avoid space in itemize
+\usepackage{amsmath} %necessary to use \boxed{} in math mode
+%\newcommand{\der}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}} %Derivata totale
+%\usepackage{symate}
+
+
+\usepackage[round]{natbib}
+%\usepackage[natbib, maxcitenames=3, mincitenames=11, style=apa]{biblatex} % it doesn't work
+
+\bibliographystyle{abbrvnat}
+\usepackage{nomi_articoli}
+
+% the following two are needed to use subfigure
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+\begin{document}
+
+
+\selectlanguage{english}
+\title{First Year Progression Review} % \\ $\text{ } $ \\What is the future? \\ $\text{ } $ \\ Critique  --- Giorgio Manzoni
+%\date{15/03/2018}
+\date{ }
+\author{2017/2018 --- Giorgio Manzoni}
+\maketitle
+\abstract{In this document I report all the work done in my first year of the CDT PhD programme under the supervision of Peder Norberg and Carlton Baugh. The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric survey with the advantage of having 40 narrow band photometric filters which make the redshift precision comparable to a spectroscopic survey. In particular the long-term aim of my project is to test an innovative group finder, based on the Markov CLustering (MCL) technique, on the PAUS data. Running this group finder on the PAUS data, require first to have a deep understanding of the survey. This has been the direction of my efforts in my first year. I have been part of the validation process, analysing the redshift accuracy and choosing the radius to be used for the forced photometry in order to better choose the parent spectroscopic survey. Additionally I have built an empirical relation for the BPT diagram to be used as a prior for the SED fitting used to retrieve photometric redshifts. In order to deeply understand the nature of the data, last March I have been observing for 7 nights as part of the PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
+
+As part of the CDT programme I have been involved in a two month team project with Procter $\&$ Gamble, between May and June. The project aimed to optimise the density of the laundry powder as a function of the numerous ingredients. We achieved this optimising an already known statistical tool named LASSO. The tools we developed can be easily used for a generic function with a high number of parameters. As a CDT I had to take part to some schools relating to Machine Learning (ML) and Artificial Intelligence (AI), the main ones being in Cardiff and London UCL.
+
+In early September I took part to a workshop in Teruel (Spain) related to Emission Line Galaxies (ELG). In this occasion, I had the opportunity to present the results of my master project, a work that made used of the VIPERS data, a spectroscopic survey with partial overlapping with PAUS. The good feedback I received pushed me to put some effort in finalising an advance draft of a VIPERS paper (that I attach to this document). What this paper needs is a fair comparison with simulations. To do this, my second supervisor Carlton is training me to use GALFORM and this has double benefits since the skills I am acquiring will be needed to create some mock catalogues to test the MCL group finder. }
+
+
+\bibliography{biblio}
+
+
+\end{document}
+ 
