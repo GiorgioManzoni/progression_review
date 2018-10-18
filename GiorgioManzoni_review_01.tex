@@ -14,6 +14,8 @@
 %\newcommand{\der}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}} %Derivata totale
 %\usepackage{symate}
 
+\usepackage[bottom]{footmisc} %footnote at the bottom of the page
+
 
 \usepackage[round]{natbib}
 %\usepackage[natbib, maxcitenames=3, mincitenames=11, style=apa]{biblatex} % it doesn't work
@@ -53,15 +55,33 @@ In early September I took part to a workshop in Teruel (Spain) related to Emissi
 \section{Completed projects}
 \subsection{Two months team project with Procter $\&$ Gamble (P$\&$G)}
 
-As part of the CDT Data Intensive activities, I have been involved in a two months team project in collaboration with Procter $\&$ Gamble. The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients($f_i = f_i(x_1, \cdots, x_{13})$). They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better ($d = \sum_i^N a_i f_i(x_j)$). A more quantitative approach would be to perform a $\chi^2$ minimisation but the problem is that the resulting best fit makes use of all the available base functions even in the case that physically the density function is just a linear combination of few of them. That's why we have chosen to use the Least Absolute Shrinkage and Selection Operator (LASSO) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameter favouring a fit with a small number of basic functions (explain better...)
+As part of the CDT Data Intensive activities, I have been involved in a two months team project in collaboration with Procter $\&$ Gamble. The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients($f_i = f_i(x_1, \cdots, x_{13})$). They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better ($d = \sum_i^N a_i f_i(x_j)$). A more quantitative approach would be to perform a $\chi^2$ minimisation but the problem is that the resulting best fit makes use of all the available base functions even in the case that the density function is physically just a linear combination of few of them. That's why we have chosen to use the Least Absolute Shrinkage and Selection Operator (LASSO) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameters, i.e. favouring a fit with a small value of $\sum_{i=1}^N a_i$. This helps to discard the base functions that are not extremely relevant to the fit because a linear combination with a lot of parameter set to zero will have a smaller penalty term. However, we realised that the traditional LASSO is not perfectly calibrated to work with all the possible scenarios as it minimises the sum of the values of the parameters and not the number of them (small $a_i$ is different from $a_i=0$). So we developed a new \textit{modified LASSO} to deal with that problem, however we agreed with the \peg team not to disclose the analytic form of the new penalty term. To test our new implementation of LASSO, we created increasingly difficult known functions (rising the number of variables and combining polynomials with exponentials terms) and adding various kinds of noise with different amplitudes we tried to recover the original functions. Since the penalty term depends on a free parameter $\lambda$, our case studies can be used in the future to train our algorithm to identify the best choice of $\lambda$.
 
+\subsection{Workshop on Emission-Line Galaxies (Teruel - Spain) }
+\label{sub:teruel}
 
-%case studies
+Last September I took part to the workshop named ``Understanding Emission-line galaxies for the next generation of cosmological survey''. In that occasion I presented, in a 15 minutes talk, the work done in my master project which studied the redshift evolution of the colour-magnitude relation in galaxies with the aim of getting insights on the quenching of star-formation activity. For this project I have used data from the VIMOS Public Extragalactic Redshift Survey (VIPERS), a spectroscopic survey which covers $23.5$ deg$^2$ at intermediate redshifts\footnote{The second (and complete) Public Data Release (PDR-2) is now available at \url{http://vipers.inaf.it/}. }. Specifically I studied the evolution of the bright-edge of the colour-magnitude developing an algorithm to quantify consistently this edge. Then, I have used the PEGASE 2 code to generate stellar population synthesis models to try and reproduce the evolution of the bright-edge, testing different star formation histories with and without a quenching event occurring. For this project I have an advance draft of a paper (attached to this document) which just need a comparison with simulations (see short term projects) in order to be complete.
 
 
 \section{Short-term projects}
 
+\subsection{GALFORM semi-analytic models}
+As mentioned in Section~\ref{sub:teruel}, the VIPERS draft paper need some comparison with simulations in order to be complete. One possible way to accomplish this is to use GALFORM semi-analytic models. I firstly used the Gonzalez-Perez 2014 (GP14) version to check that the evolution of the colour-magnitude is similar to the one observed in VIPERS. With GP14 we can also check the behaviour of the progenitor galaxies in the colour magnitude (still under investigation). One other test to check which quenching process is potentially more important in affecting the colour-magnitude diagram is to identify the population of galaxies close to the bright-edge. Using GP14, we realised that central galaxies are dominant with respect to satellites. That means that the quenching in satellites (usually ram pressure stripping) would have just a minor effect in the location of the colour-magnitude. Instead AGN feedback (main quenching process for centrals in GALFORM) would play a crucial role in the evolution of the bright-edge in the colour-magnitude plane. For this reason, the only thing needed to complete this project is to run again GALFORM, switching on and off the AGN feedback and see which scenario better represents VIPERS observations. 
+
+
+
+
 \section{Long-term and future projects}
+
+\subsection{PAUS Validation} 
+Excluding lectures and CDT events, I invested the most of my first year PhD getting involved in the PAUS collaboration, in particular in the validation of the survey. PAUS is a photometric redhift survey with the main feature being the 40 contiguous narrow band filters.
+
+\subsection{PAUS observations}
+%explain the last experience and mention the next one in December.
+\subsection{Group finder}
+
+
+% should I mention Outreach week and mini-NBA week ?
 
 \bibliography{biblio}
 
