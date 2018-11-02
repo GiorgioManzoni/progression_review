@@ -39,13 +39,14 @@
 \date{ }
 \author{2017/2018 --- Giorgio Manzoni}
 \maketitle
-\abstract{Description of the work done in my first year of the CDT Phd programme, under the supervision of Peder Norberg and Carlton Baught. I'll first explain the already completed project and then my short and long-term aims. Those include... this in chapter 1 and that other in chapter 2...}
+\abstract{In this document I report all the work done in my first year of the CDT PhD programme, and the work that I plan to do in the next upcoming years, under the supervision of Peder Norberg and Carlton Baugh. I will first give a short introduction (Section~\ref{sec:intro}) meant to be an overview describing the big picture of my project. I will then explain the projects which I have already completed, in Section~\ref{sec:complete}. This includes the two months team project for \peg and the workshop in Teruel (Spain) about Emission Line Galaxies (ELG). In Section~\ref{sec:short} I will describe the projects that I plan to finish in a short time-scale. In particular the Galform simulation run and the completion of my VIPERS draft. I conclude with Section~\ref{sec:long} describing the long-term project that I have started in the past year and that I will keep working on it for the rest of my PhD. These include the PAU survey validation (Section~\ref{sub:PAU_val}), PAUS observations (Section~\ref{sub:PAU_obs}) and the test/improvement of an innovative group finder able to work in the redshift space (Section~\ref{sub:group}).}
 
 \tableofcontents
 
 \section{Introduction}
+\label{sec:intro}
 
-In this document I report all the work done in my first year of the CDT PhD programme under the supervision of Peder Norberg and Carlton Baugh. The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric survey with the advantage of having 40 narrow band photometric filters which make the redshift precision comparable to a spectroscopic survey. In particular the long-term aim of my project is to test an innovative group finder, based on the Markov CLustering (MCL) technique, on the PAUS data. Running this group finder on the PAUS data, require first to have a deep understanding of the survey. This has been the direction of my efforts in my first year. I have been part of the validation process, analysing the redshift accuracy and choosing the radius to be used for the forced photometry in order to better choose the parent spectroscopic survey. Additionally I have built an empirical relation for the BPT diagram to be used as a prior for the SED fitting used to retrieve photometric redshifts. In order to deeply understand the nature of the data, last March I have been observing for 7 nights as part of the PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
+The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric survey with the advantage of having 40 narrow band photometric filters which make the redshift precision comparable to a spectroscopic survey. In particular the long-term aim of my project is to test an innovative group finder, based on the Markov CLustering (MCL) technique, on the PAUS data. Running this group finder on the PAUS data, require first to have a deep understanding of the survey. This has been the direction of my efforts in my first year. I have been part of the validation process, analysing the redshift accuracy and choosing the radius to be used for the forced photometry in order to better choose the parent spectroscopic survey. Additionally I have built an empirical relation for the BPT diagram to be used as a prior for the SED fitting used to retrieve photometric redshifts. In order to deeply understand the nature of the data, last March I have been observing for 7 nights as part of the PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
 
 As part of the CDT programme I have been involved in a two month team project with Procter $\&$ Gamble, between May and June. The project aimed to optimise the density of the laundry powder as a function of the numerous ingredients. We achieved this optimising an already known statistical tool named LASSO. The tools we developed can be easily used for a generic function with a high number of parameters. As a CDT I had to take part to some schools relating to Machine Learning (ML) and Artificial Intelligence (AI), the main ones being in Cardiff and London UCL.
 
@@ -53,7 +54,10 @@ In early September I took part to a workshop in Teruel (Spain) related to Emissi
 
 
 \section{Completed projects}
+\label{sec:complete}
+
 \subsection{Two months team project with Procter $\&$ Gamble (P$\&$G)}
+\label{sub:peg}
 
 As part of the CDT Data Intensive activities, I have been involved in a two months team project in collaboration with Procter $\&$ Gamble. The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients($f_i = f_i(x_1, \cdots, x_{13})$). They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better ($d = \sum_i^N a_i f_i(x_j)$). A more quantitative approach would be to perform a $\chi^2$ minimisation but the problem is that the resulting best fit makes use of all the available base functions even in the case that the density function is physically just a linear combination of few of them. That's why we have chosen to use the Least Absolute Shrinkage and Selection Operator (LASSO) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameters, i.e. favouring a fit with a small value of $\sum_{i=1}^N a_i$. This helps to discard the base functions that are not extremely relevant to the fit because a linear combination with a lot of parameter set to zero will have a smaller penalty term. However, we realised that the traditional LASSO is not perfectly calibrated to work with all the possible scenarios as it minimises the sum of the values of the parameters and not the number of them (small $a_i$ is different from $a_i=0$). So we developed a new \textit{modified LASSO} to deal with that problem, however we agreed with the \peg team not to disclose the analytic form of the new penalty term. To test our new implementation of LASSO, we created increasingly difficult known functions (rising the number of variables and combining polynomials with exponentials terms) and adding various kinds of noise with different amplitudes we tried to recover the original functions. Since the penalty term depends on a free parameter $\lambda$, our case studies can be used in the future to train our algorithm to identify the best choice of $\lambda$.
 
@@ -64,6 +68,7 @@ Last September I took part to the workshop named ``Understanding Emission-line g
 
 
 \section{Short-term projects}
+\label{sec:short}
 
 \subsection{GALFORM semi-analytic models}
 As mentioned in Section~\ref{sub:teruel}, the VIPERS draft paper need some comparison with simulations in order to be complete. One possible way to accomplish this is to use GALFORM semi-analytic models. I firstly used the Gonzalez-Perez 2014 (GP14) version to check that the evolution of the colour-magnitude is similar to the one observed in VIPERS. With GP14 we can also check the behaviour of the progenitor galaxies in the colour magnitude (still under investigation). One other test to check which quenching process is potentially more important in affecting the colour-magnitude diagram is to identify the population of galaxies close to the bright-edge. Using GP14, we realised that central galaxies are dominant with respect to satellites. That means that the quenching in satellites (usually ram pressure stripping) would have just a minor effect in the location of the colour-magnitude. Instead AGN feedback (main quenching process for centrals in GALFORM) would play a crucial role in the evolution of the bright-edge in the colour-magnitude plane. For this reason, the only thing needed to complete this project is to run again GALFORM, switching on and off the AGN feedback and see which scenario better represents VIPERS observations. 
@@ -72,16 +77,44 @@ As mentioned in Section~\ref{sub:teruel}, the VIPERS draft paper need some compa
 
 
 \section{Long-term and future projects}
+\label{sec:long}
 
 \subsection{PAUS Validation} 
-Excluding lectures and CDT events, I invested the most of my first year PhD getting involved in the PAUS collaboration, in particular in the validation of the survey. PAUS is a photometric redhift survey with the main feature being the 40 contiguous narrow band filters.
+\label{sub:PAU_val}
+Excluding lectures and CDT events, I invested the most of my first year PhD getting involved in the PAUS collaboration, in particular in the validation of the survey. PAUS is a photometric redhift survey with the main feature being the 40 contiguous narrow band filters. Since it is an ongoing survey, one of the task was to make sure that observations have being carried out with all of the filters. Because of the survey strategy and the format of the CCD, we don't observe each galaxy with all the filters in a row. Instead it is more convenient to move the CCD in a nearly spiral way (observing in dithers rather than single exposures) letting galaxies fall in the 8 different filters that are part of each of the 5 trays. That is why it becomes important to count the number of times that a galaxy have been observed in one particular filter. The number of filters is just one of many potential biases that might arise in an ongoing survey and my task is to check that instead there are no bias both at the observation stage and at the processing stage  (nightly, memba and photo-z pipelines). I did all of this tests in the COSMOS area observed by PAUS, with the possibility of comparing PAUS photometric redshifts with COSMOS spectroscopic redshifts. Now the survey has collected enough data in the W3 field so that in the close future I am ready to do all the tests in this area as well. The others two fields that PAUS is planning to cover are W1 and W4. For those fields the advantage is the overlapping with the VIPERS survey (which has been the main focus of my master project) which offers spectroscopic redshift to be used for comparison with the photometric ones. 
+
+Before processing the W3 data, an important choice about the parent survey had to be done. Since we are dealing with forced photometry, what drove this choice was the half-light radius. In particular we needed to find a survey which overlaps with W3 and that has a similar definition of half-light radius as the one in the COSMOS survey (because we want consistency among all the PAUS fields). So, in this scenario I made both statistical and (where possible) object-by-object comparison among the COSMOS, CFHTLS and CFHTLenS surveys. I finally worked out that the CFHTLenS survey has a radius consistent with the COSMOS data and so suitable for the PAUS/W3 field.
+
+One further analysis was aimed to improve the photo-z capability prediction through SED fitting. Specifically the current SED fitting procedure used by the PAUS team is based on a set of fixed emission-line ratio assumptions. A more physical scenario would allow the emission line ratios to vary following specific BPT diagrams. For this reason I have investigated in the literature various BPT diagrams for surveys at similar redshifts with the aim of building an empirical relations. The PAUS collaboration has approved the new scheme of emission line relations and they are going to use it in the next run of the photo-z pipeline. Of course, once they have done it, my next step is to check how much this variation contributes to the estimate of photometric redshifts, comparing the different productions.
+
+In a very long term view, the experience gained in the PAU survey validation might be useful for the upcoming Multi-Object Optical and Near-infrared Spectrograph (MOONS) survey.
+
 
 \subsection{PAUS observations}
-%explain the last experience and mention the next one in December.
-\subsection{Group finder}
+\label{sub:PAU_obs}
+In order to understand the nature of the data and to build experience within the survey, last March I took part to the PAUS observational run. The PAU survey is using the William Hershel Telescope (WHT), a 4.2 m diameter telescope based in La Palma (Spain) combined with a large field camera (PAUCam) built appositely for the survey. I have been observing for 7 nights sided by expert observers who taught me how to practically set up the telescope in the afternoon and how to carry out observations during the night. The set up consisted of taking flat fields and bias images while the observation were aimed in covering part of the W3 and W1 fields accordingly to the spiral observing strategy. Galaxies observed with a seeing worse than 2.0 and transparency worse than 0.5 are flagged as ``bad exposure'' and the following night they are selected to be observed again. This observational experience was meant to be a training for the next PAUS observations. In fact, I have been assigned 4 nights for next December observational run.  
 
+
+\subsection{Group finder}
+\label{sub:group}
+As mentioned in the Introduction, the main purpose of my PhD is to test and (if needed) to improve a group finder algorithm based on the Markov CLustering (MCL) technique. This technique seems to be more reliable (in terms of completeness, purity and variation of information, VI) than a simple Friend of Friend (FoF) technique which preferentially consider large structures as a single group even if they are barely connected. Until now the MCL has been tested only on mock catalogues and it looks promising for a real survey like PAUS. What makes different a real survey from a simulation is the fact that we are limited to work in the redshift space instead of the simulated real space and this has an impact in the MCL code. Running successfully this group finder on the PAUS data might provide some new insights relative to the clustering of galaxies.
+
+
+
+
+
+
+
+
+%check abstract again
 
 % should I mention Outreach week and mini-NBA week ?
+
+
+
+
+
+
 
 \bibliography{biblio}
 
