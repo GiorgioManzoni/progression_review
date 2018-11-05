@@ -14,6 +14,8 @@
 %\newcommand{\der}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}} %Derivata totale
 %\usepackage{symate}
 
+\usepackage{xcolor}
+
 \usepackage[bottom]{footmisc} %footnote at the bottom of the page
 
 
@@ -39,40 +41,88 @@
 \date{ }
 \author{2017/2018 --- Giorgio Manzoni}
 \maketitle
-\abstract{In this document I report all the work done in my first year of the CDT PhD programme, and the work that I plan to do in the next upcoming years, under the supervision of Peder Norberg and Carlton Baugh. I will first give a short introduction (Section~\ref{sec:intro}) meant to be an overview describing the big picture of my project. I will then explain the projects which I have already completed, in Section~\ref{sec:complete}. This includes the two months team project for \peg and the workshop in Teruel (Spain) about Emission Line Galaxies (ELG). In Section~\ref{sec:short} I will describe the projects that I plan to finish in a short time-scale. In particular the Galform simulation run and the completion of my VIPERS draft. I conclude with Section~\ref{sec:long} describing the long-term project that I have started in the past year and that I will keep working on it for the rest of my PhD. These include the PAU survey validation (Section~\ref{sub:PAU_val}), PAUS observations (Section~\ref{sub:PAU_obs}) and the test/improvement of an innovative group finder able to work in the redshift space (Section~\ref{sub:group}).}
-
+\abstract{In this document I report all the work done in my first year of the CDT PhD programme, and the work that I plan to do in the next upcoming years, under the supervision of Peder Norberg and Carlton Baugh. %I will first give a short introduction (Section~\ref{sec:intro}) meant to be an overview describing the big picture of my project. I will then explain the projects which I have already completed, in Section~\ref{sec:complete}. This includes the two months team project for \peg and the workshop in Teruel (Spain) about Emission Line Galaxies (ELG). In Section~\ref{sec:short} I will describe the projects that I plan to finish in a short time-scale. In particular the Galform simulation run and the completion of my VIPERS draft. I conclude with Section~\ref{sec:long} describing the long-term project that I have started in the past year and that I will keep working on it for the rest of my PhD. These include the PAU survey validation (Section~\ref{sub:PAU_val}), PAUS observations (Section~\ref{sub:PAU_obs}) and the test/improvement of an innovative group finder able to work in the redshift space (Section~\ref{sub:group}).}
+}
 \tableofcontents
-
-\section{New Introduction}
-Explain the big picture of PAUS that bridge large sparse low density galaxy surveys with small pencil beam surveys...
-
 
 \section{Introduction}
 \label{sec:intro}
 
-The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric survey with the advantage of having 40 narrow band photometric filters which make the redshift precision comparable to a spectroscopic survey. In particular the long-term aim of my project is to test an innovative group finder, based on the Markov CLustering (MCL) technique, on the PAUS data. Running this group finder on the PAUS data, require first to have a deep understanding of the survey. This has been the direction of my efforts in my first year. I have been part of the validation process, analysing the redshift accuracy and choosing the radius to be used for the forced photometry in order to better choose the parent spectroscopic survey. Additionally I have built an empirical relation for the BPT diagram to be used as a prior for the SED fitting used to retrieve photometric redshifts. In order to deeply understand the nature of the data, last March I have been observing for 7 nights as part of the PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
+The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric redshift survey which is unique since it aims to bridge the gap between small pencil-beam and sparse wide-area spectroscopic galaxy surveys. In fact PAUS is surveying large contiguous areas with high density of galaxies with sub-percent photometric redshift accuracy (\cite{eriksen18}). To achieve this precision, the survey has been designed with 40 contiguous narrow bands (NB) filters, 10 nm wide, ranging from 450 nm to 850 nm. This combination of NB filters makes PAUS up to ten times more precise than any other broad band photometric redshift survey with an accuracy of at least $0.004 (1+z)$ for over $50 \%$ of the galaxies up to $i_{\rm{AB}}\approx 22.5$. 
 
-As part of the CDT programme I have been involved in a two month team project with Procter $\&$ Gamble, between May and June. The project aimed to optimise the density of the laundry powder as a function of the numerous ingredients. We achieved this optimising an already known statistical tool named LASSO. The tools we developed can be easily used for a generic function with a high number of parameters. As a CDT I had to take part to some schools relating to Machine Learning (ML) and Artificial Intelligence (AI), the main ones being in Cardiff and London UCL.
+Thanks to its depth and number density (tens of thousands of galaxies per deg$^2$ with a median redshift of $z \sim 0.7$), PAUS will result in one of the most detailed studies of intermediate-scale cosmic structure ever undertaken. With these features, PAUS has the capability of probing the galaxy clustering in the transition from the linear to the non-linear regime \citep{stothert18_thesis}. Moreover, the study of galaxy groups will be further improved as spectroscopic surveys are either too sparse (e.g. BOSS), too shallow (e.g. GAMA), too narrow (e.g. COSMOS) or a combination of those characteristics (e.g. VIPERS).
 
-In early September I took part to a workshop in Teruel (Spain) related to Emission Line Galaxies (ELG). In this occasion, I had the opportunity to present the results of my master project, a work that made used of the VIPERS data, a spectroscopic survey with partial overlapping with PAUS. The good feedback I received pushed me to put some effort in finalising an advance draft of a VIPERS paper (that I attach to this document). What this paper needs is a fair comparison with simulations. To do this, my second supervisor Carlton is training me to use GALFORM and this has double benefits since the skills I am acquiring will be needed to create some mock catalogues to test the MCL group finder.
+Since the study of galaxy groups is a key science driver for PAUS, it must rely on a well grounded group finder code, and here is where my work comes into play. In particular, \cite{stothert18_thesis} showed how a simple Friends of Friends (FoF) algorithm is inadequate to take into account probabilistic redshifts with different accuracies as in the case of PAUS and how a Markov CLustering (MCL) technique is more suitable for a photometric redshift survey like this. Hence, the main purpose of my PhD project is to develop, test and finally apply this innovative MCL algorithm on the PAUS data. 
+
+To do this, a deep understanding of the survey is needed. This has been the direction of my efforts in my first year. I have been part of the validation process of the survey and, attending weekly telecons, I have built the experience needed to deal with a group finder aimed to specifically work on photometric redshifts. 
+
+As part of the process of building experience within the survey, I also took part to the last PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
+
+In the rest of the report I describe other activities which were part of my first year training although not directly connected to the main project. These activities include a two months team project for Procter $\&$ Gamble (P$\&$G) and the use of GALFORM semi-analytic models to finalise a paper draft related to the quenching of star formation activities in galaxies.
 
 
-\section{Completed projects}
-\label{sec:complete}
+% just recently touched the group finder --> main task of the second year
+
+
+\section{Short-term projects}
+\label{sec:short}
 
 \subsection{Two months team project with Procter $\&$ Gamble (P$\&$G)}
 \label{sub:peg}
 
-As part of the CDT Data Intensive activities, I have been involved in a two months team project in collaboration with Procter $\&$ Gamble. The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients($f_i = f_i(x_1, \cdots, x_{13})$). They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better ($d = \sum_i^N a_i f_i(x_j)$). A more quantitative approach would be to perform a $\chi^2$ minimisation but the problem is that the resulting best fit makes use of all the available base functions even in the case that the density function is physically just a linear combination of few of them. That's why we have chosen to use the Least Absolute Shrinkage and Selection Operator (LASSO) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameters, i.e. favouring a fit with a small value of $\sum_{i=1}^N a_i$. This helps to discard the base functions that are not extremely relevant to the fit because a linear combination with a lot of parameter set to zero will have a smaller penalty term. However, we realised that the traditional LASSO is not perfectly calibrated to work with all the possible scenarios as it minimises the sum of the values of the parameters and not the number of them (small $a_i$ is different from $a_i=0$). So we developed a new \textit{modified LASSO} to deal with that problem, however we agreed with the \peg team not to disclose the analytic form of the new penalty term. To test our new implementation of LASSO, we created increasingly difficult known functions (rising the number of variables and combining polynomials with exponentials terms) and adding various kinds of noise with different amplitudes we tried to recover the original functions. Since the penalty term depends on a free parameter $\lambda$, our case studies can be used in the future to train our algorithm to identify the best choice of $\lambda$.
+This project is part of the CDT data intensive training. The team were made by three CDT students (Kevin Kwok, Miguel Icaza and I), an internal leader (Richard Bower), and two \peg leaders (Stefan Egan and Arturo Martinez).
+
+The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients: 
+\begin{equation}
+\label{eq:fi}
+f_i = f_i(x_1 \cdots, x_{13})
+\end{equation}
+They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better: 
+\begin{equation}
+\label{eq:density}
+\rm{density} = \sum_i^N a_i f_i(x_j)
+\end{equation}
+
+
+%
+\begin{figure}
+\centering
+\begin{subfigure}{.48\textwidth}
+   \centering
+   \includegraphics[width=0.9\linewidth]{x2.png}
+   \caption{Examples of modified LASSO fits for different $\lambda$s on 60 data points generated from an $x^2$ function ($f_{\rm{true}}(x)=x^2$) with the addition of a gaussian noise with standard deviation 0.9. The fitting function is a third order polynomial.}
+   \label{fig:x2}
+\end{subfigure}\hfill%
+\begin{subfigure}{.48\textwidth}
+   \centering
+   \includegraphics[width=0.9\linewidth]{x2_coeff.png}
+   \caption{Trend of the parameters of the fitting function ($f_{\rm{fit}}=p_0 + p_1 x + p_2 x^2 + p_3 x^3$) as a function of the $\lambda$ parameter. Since we know $f_{\rm{true}}$, we know that the right answer is $p_2=1$ and $p_0=p_1=p_3 =0$. This solution is achieved only for $\lambda \gtrsim 0.09$.}
+   \label{fig:x2_coeff}
+\end{subfigure}
+\caption{Example of the performances of the modified LASSO in recovering a known function when some gaussian noise is added.}
+\label{fig:LASSO}
+\end{figure}
+%
+
+The first step to make this process more quantitative is to use Eq.~\ref{eq:density} as a fitting function leaving free the parameters and finding them through the minimisation of the $\chi^2$:
+\begin{equation}
+\label{eq:chisquared}
+\chi^2=\sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{N}
+\end{equation}
+The minimisation of the $\chi^2$, although computationally expensive because of the high number of bases functions (hence the high number of parameters $a_i$), will result in the best fit, i.e. the one which minimise the distance to the data points. The best fit is not necessarily what we want as it might rely on our choice of base functions $f_i$ and the specific data set that we are using ($x_k,y_k$). For example if I modify $f_{\rm{fit}}$ adding a further base function, the $\chi^2$ minimisation will try to use also this further parameter in order to obtain a better fit. The problem of finding the very best fit is that in another data-set it is very unlikely to be the best fit as well.  What we want instead is to realistically find which base functions the density rely on. A further advantage of eliminating some base functions $f_i$ (i.e. setting the relative parameter $a_i=0$) comes from the fact that not all of them depend on all the 13 ingredients $x_j$, there might be some of them depending on a single ingredient. In that case (assuming that this ingredient does not appear in other base functions) we learn that this particular ingredient doesn't affect the density at all, and this is particularly relevant for industrial processes.
+
+A possible way to address this problem is   {\color{red}\huge{LASSO $\Rightarrow$ I am here}}  \\
+
+
+That is why we have chosen to use the Least Absolute Shrinkage and Selection Operator (LASSO) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameters, i.e. favouring a fit with a small value of $\sum_{i=1}^N a_i$. This helps to discard the base functions that are not extremely relevant to the fit because a linear combination with a lot of parameter set to zero will have a smaller penalty term. However, we realised that the traditional LASSO is not perfectly calibrated to work with all the possible scenarios as it minimises the sum of the values of the parameters and not the number of them (small $a_i$ is different from $a_i=0$). So we developed a new \textit{modified LASSO} to deal with that problem, however we agreed with the \peg team not to disclose the analytic form of the new penalty term. To test our new implementation of LASSO, we created increasingly difficult known functions (rising the number of variables and combining polynomials with exponentials terms) and adding various kinds of noise with different amplitudes we tried to recover the original functions. Since the penalty term depends on a free parameter $\lambda$, our case studies can be used in the future to train our algorithm to identify the best choice of $\lambda$.
+
+% cite figure 1
+
 
 \subsection{Workshop on Emission-Line Galaxies (Teruel - Spain) }
 \label{sub:teruel}
 
 Last September I took part to the workshop named ``Understanding Emission-line galaxies for the next generation of cosmological survey''. In that occasion I presented, in a 15 minutes talk, the work done in my master project which studied the redshift evolution of the colour-magnitude relation in galaxies with the aim of getting insights on the quenching of star-formation activity. For this project I have used data from the VIMOS Public Extragalactic Redshift Survey (VIPERS), a spectroscopic survey which covers $23.5$ deg$^2$ at intermediate redshifts\footnote{The second (and complete) Public Data Release (PDR-2) is now available at \url{http://vipers.inaf.it/}. }. Specifically I studied the evolution of the bright-edge of the colour-magnitude developing an algorithm to quantify consistently this edge. Then, I have used the PEGASE 2 code to generate stellar population synthesis models to try and reproduce the evolution of the bright-edge, testing different star formation histories with and without a quenching event occurring. For this project I have an advance draft of a paper (attached to this document) which just need a comparison with simulations (see short term projects) in order to be complete.
-
-
-\section{Short-term projects}
-\label{sec:short}
 
 \subsection{GALFORM semi-analytic models}
 As mentioned in Section~\ref{sub:teruel}, the VIPERS draft paper need some comparison with simulations in order to be complete. One possible way to accomplish this is to use GALFORM semi-analytic models. I firstly used the Gonzalez-Perez 2014 (GP14) version to check that the evolution of the colour-magnitude is similar to the one observed in VIPERS. With GP14 we can also check the behaviour of the progenitor galaxies in the colour magnitude (still under investigation). One other test to check which quenching process is potentially more important in affecting the colour-magnitude diagram is to identify the population of galaxies close to the bright-edge. Using GP14, we realised that central galaxies are dominant with respect to satellites. That means that the quenching in satellites (usually ram pressure stripping) would have just a minor effect in the location of the colour-magnitude. Instead AGN feedback (main quenching process for centrals in GALFORM) would play a crucial role in the evolution of the bright-edge in the colour-magnitude plane. For this reason, the only thing needed to complete this project is to run again GALFORM, switching on and off the AGN feedback and see which scenario better represents VIPERS observations. 
@@ -120,7 +170,7 @@ As mentioned in the Introduction, the main purpose of my PhD is to test and (if 
 
 
 
-\bibliography{biblio}
+\bibliography{biblio.bib}
 
 
 \end{document}
