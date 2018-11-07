@@ -1,4 +1,5 @@
-\documentclass[letterpaper]{article}
+%\documentclass[letterpaper]{article}
+\documentclass[11pt]{article}
 \usepackage[utf8x]{inputenc} 
 \usepackage[english]{babel}
 \usepackage{hyperref}
@@ -26,7 +27,7 @@
 \usepackage{nomi_articoli}
 
 % the following two are needed to use subfigure
-\usepackage{caption}
+\usepackage[font=footnotesize]{caption}
 \usepackage{subcaption}
 
 \newcommand{\peg}{P$\&$G }
@@ -75,7 +76,7 @@ This project is part of the CDT data intensive training. The team were made by t
 The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients: 
 \begin{equation}
 \label{eq:fi}
-f_i = f_i(x_1 \cdots, x_{13})
+f_i = f_i(x_1, \cdots, x_{13})
 \end{equation}
 They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better: 
 \begin{equation}
@@ -96,7 +97,7 @@ They made up the density function as a linear combination of those base function
 \begin{subfigure}{.48\textwidth}
    \centering
    \includegraphics[width=0.9\linewidth]{x2_coeff.png}
-   \caption{Trend of the parameters of the fitting function ($f_{\rm{fit}}=p_0 + p_1 x + p_2 x^2 + p_3 x^3$) as a function of the $\lambda$ parameter. Since we know $f_{\rm{true}}$, we know that the right answer is $p_2=1$ and $p_0=p_1=p_3 =0$. This solution is achieved only for $\lambda \gtrsim 0.09$.}
+   \caption{Trend of the parameters of the fitting function ($f_{\rm{fit}}=p_0 + p_1 x + p_2 x^2 + p_3 x^3$) as a function of the $\lambda$ parameter. Since we know $f_{\rm{true}}$, we know that the right answer is $p_2=1$ (red line) and $p_0=p_1=p_3 =0$. This solution is achieved only for $\lambda \gtrsim 0.09$.}
    \label{fig:x2_coeff}
 \end{subfigure}
 \caption{Example of the performances of the modified LASSO in recovering a known function when some gaussian noise is added.}
@@ -107,31 +108,118 @@ They made up the density function as a linear combination of those base function
 The first step to make this process more quantitative is to use Eq.~\ref{eq:density} as a fitting function leaving free the parameters and finding them through the minimisation of the $\chi^2$:
 \begin{equation}
 \label{eq:chisquared}
-\chi^2=\sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{N}
+\chi^2=\sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M}
 \end{equation}
-The minimisation of the $\chi^2$, although computationally expensive because of the high number of bases functions (hence the high number of parameters $a_i$), will result in the best fit, i.e. the one which minimise the distance to the data points. The best fit is not necessarily what we want as it might rely on our choice of base functions $f_i$ and the specific data set that we are using ($x_k,y_k$). For example if I modify $f_{\rm{fit}}$ adding a further base function, the $\chi^2$ minimisation will try to use also this further parameter in order to obtain a better fit. The problem of finding the very best fit is that in another data-set it is very unlikely to be the best fit as well.  What we want instead is to realistically find which base functions the density rely on. A further advantage of eliminating some base functions $f_i$ (i.e. setting the relative parameter $a_i=0$) comes from the fact that not all of them depend on all the 13 ingredients $x_j$, there might be some of them depending on a single ingredient. In that case (assuming that this ingredient does not appear in other base functions) we learn that this particular ingredient doesn't affect the density at all, and this is particularly relevant for industrial processes.
+The minimisation of the $\chi^2$, although computationally expensive because of the high number of base functions (hence the high number of parameters $a_i$), will result in the best fit, i.e. the one which minimise the distance to the data points. The best fit is not necessarily what we want as it might rely on our choice of base functions $f_i$ and the specific data-set that we are using ($x_k,y_k$). For example if I modify $f_{\rm{fit}}$ adding a further base function, the $\chi^2$ minimisation will try to use also this further parameter in order to obtain a better fit. The problem of finding the very best fit is that in another data-set it is very unlikely to be the best fit as well. This makes our result not robust.  What we want instead is to realistically find which base functions the density rely on. 
 
-A possible way to address this problem is   {\color{red}\huge{LASSO $\Rightarrow$ I am here}}  \\
+If we succeed in reducing the number of base functions $f_i$ (setting the relative parameter $a_i=0$) we might obtain a further advantage coming from the fact that not all of the $f_i$ depend on all the 13 ingredients $x_j$. For example there might be some of them depending on a single ingredient. In that case (assuming that this ingredient does not appear in other base functions) we learn that this particular ingredient doesn't affect the density at all, and this is particularly relevant for the efficiency of the industrial process.
+
+A possible way to address (at least partially) this problem is to use the Least Absolute Shrinkage and Selection Operator (LASSO, \citealt{LASSO}) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameters, i.e. favouring a fit with a small value of $\sum_{i=1}^N \lvert  a_i \rvert$. The classic analytic form of LASSO is the following: 
+%
+\begin{equation}
+\label{eq:lasso_classic}
+\rm{LASSO} = \boxed{ \sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M} + \lambda\sum_{i=1}^N {\lvert} a_i {\rvert}} \equiv \chi^2 + \rm{Penalty}
+\end{equation}
+%
+where M is the number of data points and N is the number of base functions and $\lambda$ is a free parameter that we can tune case by case (the choice of the perfect $\lambda$ is still an open debate and one possible idea might be to use a machine learning approach to train the algorithm on cases with a known solution). This helps to discard the base functions that are not extremely relevant as, when minimising Eq. ~\ref{eq:lasso_classic}, a fit with a lot of bases function will result in a bigger penalty term, hence favouring a solution made by a linear combination with a lot of parameter set to zero.
+
+However, we realised that the traditional LASSO as in Eq.~\ref{eq:lasso_classic} is not perfectly calibrated to work with all the possible scenarios as it minimises the sum of the absolute values of the parameters and not the number of them (small $a_i$ is different from $a_i=0$). So we developed a new \textit{modified LASSO} to deal with this problem. In particular we slightly changed the penalty function in this way:
+%
+\begin{equation}
+\label{eq:new_penalty}
+\text{New Penalty} = \lambda \left[ \left( \sum_{i=0}^N \lvert a_i \rvert \right)^2 - \left(\sum_{i=0}^N a_i^2\right)\right]
+\end{equation}
+%
+In this new penalty function parameters that are zero are favoured as they appeared only in cross terms. For example, let us assume we have just 3 parameters, the new penalty will be: $(a_1 + a_2 + a_3)^2 - a_1^2 -a_2^2 - a_3^2 = 2 a_1a_2 + 2 a_1a_3 +2a_2a_3$. If one of the parameters is null, it will make null the product with another parameter and this will make the penalty smaller than having small non zero parameters. 
+
+Another problem we faced was the fact that as long as we do not normalise the base functions, different parameters could affect in very different ways the LASSO functions, hence the result of the fit. For example if a base function is $f_{i_0} = x$ or $f_{i_1} = 5x$, the parameter $a_{i_0}$ and $a_{i_1}$ will have the same weight in the penalty function ignoring the fact that they carry different information. That is why we decided to normalise the data and the base function image in the following way:
+\begin{equation}
+\hat x = \frac{x - x_{\rm{min}}}{x_{\rm{max}}-x_{\rm{min}}} \quad
+\hat y = \frac{y - y_{\rm{min}}}{y_{\rm{max}}-y_{\rm{min}}} \quad
+\hat f(\hat x) = \frac{f(x(\hat x)) - f_{\rm{min}}(x(\hat x))}{f_{\rm{max}}(x(\hat x))-x_{\rm{min}}(x(\hat x))}
+\end{equation}
+%
+where $x \in [x_{\rm{min}},x_{\rm{max}}] \Rightarrow \hat x \in [0,1]$, $y \in [y_{\rm{min}},y_{\rm{max}}] \Rightarrow \hat y \in [0,1]$ and $f(x) \in [f_{\rm{min}}(x),f_{\rm{max}}(x)] \Rightarrow \hat f (\hat x) \in [0,1]$.
+%
+To deal with normalised variables, also the $\chi^2$ needs to be normalised in order to have the same order of magnitude of the penalty function. We managed it introducing the $\epsilon^2$ parameter which is essentially the minimum value of the $\chi^2$ (without the penalty) to normalise our modified LASSO to 1 when $\lambda =0$:
+%
+\begin{equation}
+\epsilon^2 = \rm{min}\left\lbrace \sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M}
+ \right\rbrace
+\end{equation}
+%
+With those definitions, our modified lasso acquire the following form:
+
+\begin{equation}
+\label{eq:lasso_mod}
+\text{MODIFIED LASSO} = \boxed{\frac{1}{\epsilon^2}  \sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M} + \lambda \left[ \left( \sum_{i=0}^N \lvert a_i \rvert \right)^2 - \left(\sum_{i=0}^N a_i^2\right)\right]}
+\end{equation}
+
+ To test our new implementation of LASSO, we created increasingly difficult known functions (rising the number of variables and combining polynomials with exponentials terms). After having added various kinds of noise with different amplitudes, we tried to recover the original functions, fitting with the \emph{modified LASSO} of Eq.~\ref{eq:lasso_mod}. 
+ 
+ A simple scenario is shown in Fig.~\ref{fig:LASSO} where we generated 60 data-points using the function $f_{\rm{true}} = x^2$ with additional gaussian noise with a standard deviation of 0.9. We fitted the data-point using a third order polynomial $f_{\rm{fit}}(x)=a_0 + a_1x  + a_2x^2 + a_3 x^3$ knowing that the solution is $a_2=1$ and $a_0=a_1=a_3=0$. Although, looking at the left panel, the fits for different $\lambda$s do not look very different, in the right panel we notice that we recover the true solution only for $\lambda \gtrsim 0.09$. Picking the right $\lambda$ is not trivial, and currently there are no rules in the literature to decide which is the right value. In the future, it might be interesting to train our algorithm to choose the right $\lambda$ using known case studies like the $x^2$ one.
 
 
-That is why we have chosen to use the Least Absolute Shrinkage and Selection Operator (LASSO) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameters, i.e. favouring a fit with a small value of $\sum_{i=1}^N a_i$. This helps to discard the base functions that are not extremely relevant to the fit because a linear combination with a lot of parameter set to zero will have a smaller penalty term. However, we realised that the traditional LASSO is not perfectly calibrated to work with all the possible scenarios as it minimises the sum of the values of the parameters and not the number of them (small $a_i$ is different from $a_i=0$). So we developed a new \textit{modified LASSO} to deal with that problem, however we agreed with the \peg team not to disclose the analytic form of the new penalty term. To test our new implementation of LASSO, we created increasingly difficult known functions (rising the number of variables and combining polynomials with exponentials terms) and adding various kinds of noise with different amplitudes we tried to recover the original functions. Since the penalty term depends on a free parameter $\lambda$, our case studies can be used in the future to train our algorithm to identify the best choice of $\lambda$.
+\subsection{The quenching of star-formation in VIPERS and GALFORM}
+\label{sub:vipers}
 
-% cite figure 1
+In September I attended the workshop ``Understanding Emission-line galaxies for the next generation of cosmological survey'' in Teruel (Spain). 
+On that occasion I presented the work done in my master project which studied the redshift evolution of the colour-magnitude relation in galaxies with the aim of getting insights on the quenching of star-formation (SF) activity. For this project I have used data from the VIMOS Public Extragalactic Redshift Survey (VIPERS, \citealt{guzzo14,scodeggio16})\footnote{The data I have used comes from the second (and complete) Public Data Release (PDR-2) which is now available at \url{http://vipers.inaf.it/}. }, a spectroscopic survey which covers $23.5$ deg$^2$ at intermediate redshifts ($0.4<z<1.3$).
+
+ Specifically I studied the evolution of the bright-edge of the colour-magnitude for 7 different redshift bins, as shown in Fig.~\ref{fig:vipers}. 
+ %
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{EVOLUTION_CLEAR_thr15.png}
+\caption{VIPERS colour-magnitude diagram in 7 different redshift bins. The thick line marks the bright-edge as defined by the drop in number counts to the $15\%$ of the most populated bin.}
+\label{fig:vipers}
+\end{figure}
+ %
+ The bright-edge is a good tracer of the star formation activity as it is determined by the population of bright galaxies that are progressively disappearing. The speed at which it moves with redshift might be related to the quenching of star-formation activity that pushes individual galaxies to move into the red sequence of quiescent galaxies. The faint-end of the colour-magnitude diagram instead does not bring any information at all as it is determined by the deep of the survey (in the case of VIPERS, the cut is at $i_{\rm{AB}}<22.5$). 
+
+To consistently identify the bright-edge, I have developed an algorithm which marks this feature when the number density in magnitude bins drops down a certain percentage of the most populated bin (see thick lines in Fig.~\ref{fig:vipers}). 
+The trend in Fig.~\ref{fig:vipers} shows that the bright-edge at high redshifts is defined by galaxies that are clearly brighter than those at low redshift. 
+
+One way of getting some information on the star-formation activity of galaxies exploiting what we know about the location of the bright-edge is to build some stellar population synthesis models. 
+In particular, I have used the PEGASE 2 code to generate these models in order to try and reproduce the evolution of the bright-edge, testing different star formation histories (SFH, i.e star-formation rate (SFR) as a function of time) with and without a quenching event\footnote{When I speak about a quenching event, I refer to the suppression of the star-formation of a galaxy in a maximum interval of time of 100,000 years (which corresponds to the resolution of the PEGASE models).} occurring. 
+We can see the results of this calculation in Fig.~\ref{fig:vipers_results}.
+%
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{results.png}
+\caption{Results of the synthetic evolution of the colour-magnitude relation following PEGASE models with 3 different star formation histories. In the three panels, the yellow points are the same, i.e. the observed galaxies in the lower redshift bin ($0.4<z<0.5$). The green points instead are the galaxies in the highest redshift bin ($1.0<z<1.3$) after having experience a synthetic evolution of 3.26 Gyr, that is the time needed to move from the $z\sim 1.11$ to $z\sim 0.47$ (the median redshift in the respective bins). The blue line is the observed bright-edge (relative to the yellow points) while the red line is the synthetic bright-edge (relative to the green points). The three panel are respective (from left to right) a simple delayed exponential SFH, SFH with quench at the epoch of observation ($z\sim1.11$ in this case) and SFH with a random quench spread in an interval time of 3 Gyr after the epoch of observation. }
+\label{fig:vipers_results}
+\end{figure}
+%
+In particular, Fig.~\ref{fig:vipers_results} shows the comparisons between the observed VIPERS galaxies in the lowest redshift bin ($0.4<z<0.5$) drawn as yellow points (which are the same in the three panels) and galaxies in the highest redshift bin ($1.0<z<1.3$) after having experienced a synthetic evolution of 3.26 Gyr (green points). This is the interval time necessary to bring a typical galaxy from $z\sim1.11$ to $z\sim0.47$ (median redshift in the highest and lower bin respectively). The three different panels show different synthetic evolutions, i.e. different star-formation histories. Specifically, the panel on the left-hand side is obtained with a simple delayed exponential SFH as described by \cite{gavazzi02}, i.e. following Eq.~\ref{eq:gavazzi}, 
+%
+\begin{equation}
+\label{eq:gavazzi}
+\rm{SFR} (t,\tau) = \frac{t}{\tau^2}\exp{\left[-\frac{t^2}{2\tau^2}\right]}
+\end{equation}
+%
+where $t$ is the cosmic time and $\tau$ is the unique parameter which sets the delay. In this scenario, there is no quenching occurring. In the center panel I introduced a quenching (SFR instantaneously\footnote{Instantaneously means a time of 100,000 years, i.e. the resolution of PEGASE models.} brought to zero) for all the galaxies at the epoch of observation, that in this case is $z\sim 1.11$. The rights panel instead shows a scenario in which each galaxy experience the quenching at a random time between the epoch of observation and a time interval of 3 Gyrs afterwards. This guarantee that after 3 Gyrs all the galaxies in the sample are quenched. 
+
+The agreement between the observed bright-edge and the synthetic one (blue and red line respectively, in Fig. ~\ref{fig:vipers_results}) can be used as an indicator of which synthetic SFH better reproduce the data, hence which quenching scenario is more realistic. In the ``no quenching scenario'' (left panel) the evolution of galaxies seems to mild, leaving a lot of blue and bright star-forming galaxies surviving at low redshift, in contrast with observations. In the central panel instead, where all the galaxies are quenched exactly at the epoch of observations, the evolution looks too fast bringing all the synthetic galaxies at low redshift to be in the red sequence with no galaxies left in the blue cloud. 
+
+Finally the conclusion of this work is that a scenario in which galaxies are randomly quenched within an interval time of 3 Gyrs (right panel) seems to be the one that produce a better agreement between the observed and the synthetic reproduced bright-edge, hence a better modelling of the SFH. \\ 
+
+For this project I have an advanced paper draft (attached to this document). In Teruel workshop I received some good feedback about how to make these results more robust. One of the suggestion I am still working on is the comparison of these results with the ones obtained from semi-analytics models, in particular I am using the \cite{gonzalez14} version of  GALFORM (GP14).
+
+The advantage of semi-analytics models is that we can actually see the behaviour of progenitor galaxies following a specific branch of the merger tree. In this way we can study how related galaxies move in the colour-magnitude diagram. This is something we can not do with real data as we do not have information about the connection between galaxies at different redshift.
+
+Another advantage of semi-analytics models like GALFORM is that we can run them multiple times changing the parameters that are more important. In our investigation, the parameters we want to change are those relative to the quenching mechanism.
+
+For this reason it is important to be aware of which quenching process is potentially more important in affecting the colour-magnitude diagram. This test can be done identifying the population of galaxies close to the bright-edge.
+ Using GP14, I realised that central galaxies are dominant with respect to satellites. That means that the quenching in satellites (usually ram pressure stripping) would have just a minor effect in the location of the bright-edge of the colour-magnitude plane. Instead AGN feedback (main quenching process for centrals in GALFORM) would play a crucial role in the evolution of the bright-edge. 
+
+Knowing this, the final test that needs to be done is running GALFORM switching the AGN feedback on and off, and testing which scenario better agrees with VIPERS observations.
 
 
-\subsection{Workshop on Emission-Line Galaxies (Teruel - Spain) }
-\label{sub:teruel}
 
-Last September I took part to the workshop named ``Understanding Emission-line galaxies for the next generation of cosmological survey''. In that occasion I presented, in a 15 minutes talk, the work done in my master project which studied the redshift evolution of the colour-magnitude relation in galaxies with the aim of getting insights on the quenching of star-formation activity. For this project I have used data from the VIMOS Public Extragalactic Redshift Survey (VIPERS), a spectroscopic survey which covers $23.5$ deg$^2$ at intermediate redshifts\footnote{The second (and complete) Public Data Release (PDR-2) is now available at \url{http://vipers.inaf.it/}. }. Specifically I studied the evolution of the bright-edge of the colour-magnitude developing an algorithm to quantify consistently this edge. Then, I have used the PEGASE 2 code to generate stellar population synthesis models to try and reproduce the evolution of the bright-edge, testing different star formation histories with and without a quenching event occurring. For this project I have an advance draft of a paper (attached to this document) which just need a comparison with simulations (see short term projects) in order to be complete.
-
-\subsection{GALFORM semi-analytic models}
-As mentioned in Section~\ref{sub:teruel}, the VIPERS draft paper need some comparison with simulations in order to be complete. One possible way to accomplish this is to use GALFORM semi-analytic models. I firstly used the Gonzalez-Perez 2014 (GP14) version to check that the evolution of the colour-magnitude is similar to the one observed in VIPERS. With GP14 we can also check the behaviour of the progenitor galaxies in the colour magnitude (still under investigation). One other test to check which quenching process is potentially more important in affecting the colour-magnitude diagram is to identify the population of galaxies close to the bright-edge. Using GP14, we realised that central galaxies are dominant with respect to satellites. That means that the quenching in satellites (usually ram pressure stripping) would have just a minor effect in the location of the colour-magnitude. Instead AGN feedback (main quenching process for centrals in GALFORM) would play a crucial role in the evolution of the bright-edge in the colour-magnitude plane. For this reason, the only thing needed to complete this project is to run again GALFORM, switching on and off the AGN feedback and see which scenario better represents VIPERS observations. 
-
-
-
-
-\section{Long-term and future projects}
-\label{sec:long}
+\textcolor{red}{I am here}
+\section{Main project}
+\label{sec:main}
 
 \subsection{PAUS Validation} 
 \label{sub:PAU_val}
@@ -148,7 +236,7 @@ In a very long term view, the experience gained in the PAU survey validation mig
 \label{sub:PAU_obs}
 In order to understand the nature of the data and to build experience within the survey, last March I took part to the PAUS observational run. The PAU survey is using the William Hershel Telescope (WHT), a 4.2 m diameter telescope based in La Palma (Spain) combined with a large field camera (PAUCam) built appositely for the survey. I have been observing for 7 nights sided by expert observers who taught me how to practically set up the telescope in the afternoon and how to carry out observations during the night. The set up consisted of taking flat fields and bias images while the observation were aimed in covering part of the W3 and W1 fields accordingly to the spiral observing strategy. Galaxies observed with a seeing worse than 2.0 and transparency worse than 0.5 are flagged as ``bad exposure'' and the following night they are selected to be observed again. This observational experience was meant to be a training for the next PAUS observations. In fact, I have been assigned 4 nights for next December observational run.  
 
-
+\section{Future project}
 \subsection{Group finder}
 \label{sub:group}
 As mentioned in the Introduction, the main purpose of my PhD is to test and (if needed) to improve a group finder algorithm based on the Markov CLustering (MCL) technique. This technique seems to be more reliable (in terms of completeness, purity and variation of information, VI) than a simple Friend of Friend (FoF) technique which preferentially consider large structures as a single group even if they are barely connected. Until now the MCL has been tested only on mock catalogues and it looks promising for a real survey like PAUS. What makes different a real survey from a simulation is the fact that we are limited to work in the redshift space instead of the simulated real space and this has an impact in the MCL code. Running successfully this group finder on the PAUS data might provide some new insights relative to the clustering of galaxies.
