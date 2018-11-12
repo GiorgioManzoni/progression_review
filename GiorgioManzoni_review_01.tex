@@ -37,12 +37,18 @@
 
 
 \selectlanguage{english}
-\title{First Year Progression Review} % \\ $\text{ } $ \\What is the future? \\ $\text{ } $ \\ Critique  --- Giorgio Manzoni
+%\title{First Year Progression Review} % \\ $\text{ } $ \\What is the future? \\ $\text{ } $ \\ Critique  --- Giorgio Manzoni
 %\date{15/03/2018}
+
+\title{The Probe of the Accelerating Universe Survey (PAUS)}
 \date{ }
-\author{2017/2018 --- Giorgio Manzoni}
+\author{First Year Progression Review (2017/2018) \\ \\Giorgio Manzoni}
 \maketitle
-\abstract{In this document I report all the work done in my first year of the CDT PhD programme, and the work that I plan to do in the next upcoming years, under the supervision of Peder Norberg and Carlton Baugh. %I will first give a short introduction (Section~\ref{sec:intro}) meant to be an overview describing the big picture of my project. I will then explain the projects which I have already completed, in Section~\ref{sec:complete}. This includes the two months team project for \peg and the workshop in Teruel (Spain) about Emission Line Galaxies (ELG). In Section~\ref{sec:short} I will describe the projects that I plan to finish in a short time-scale. In particular the Galform simulation run and the completion of my VIPERS draft. I conclude with Section~\ref{sec:long} describing the long-term project that I have started in the past year and that I will keep working on it for the rest of my PhD. These include the PAU survey validation (Section~\ref{sub:PAU_val}), PAUS observations (Section~\ref{sub:PAU_obs}) and the test/improvement of an innovative group finder able to work in the redshift space (Section~\ref{sub:group}).}
+\abstract{In this document I report all the work done in my first year of the CDT PhD programme, and the work that I plan to do in the next upcoming years, under the supervision of Peder Norberg and Carlton Baugh. 
+First I give a short introduction (Section~\ref{sec:intro}) meant to be an overview describing the big picture of my project. 
+Then, in Section~\ref{sec:short}, I explain short-term projects carried out in the first year. This section includes the two months team project for \peg and the work I have been doing on the evolution of the colour-magnitude using VIPERS data and GALFORM semi-analytic models.
+Section~\ref{sec:main} is the core of the report as it explains the work done on my main PhD project in the first year.
+I conclude with Section~\ref{sec:future}, which explains how I will continue from the work done to obtain the main results of my PhD, i.e. the development, testing and application of an innovative group finder able to work in redshift space.
 }
 \tableofcontents
 
@@ -51,13 +57,13 @@
 
 The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric redshift survey which is unique since it aims to bridge the gap between small pencil-beam and sparse wide-area spectroscopic galaxy surveys. In fact PAUS is surveying large contiguous areas with high density of galaxies with sub-percent photometric redshift accuracy (\cite{eriksen18}). To achieve this precision, the survey has been designed with 40 contiguous narrow bands (NB) filters, 10 nm wide, ranging from 450 nm to 850 nm. This combination of NB filters makes PAUS up to ten times more precise than any other broad band photometric redshift survey with an accuracy of at least $0.004 (1+z)$ for over $50 \%$ of the galaxies up to $i_{\rm{AB}}\approx 22.5$. 
 
-Thanks to its depth and number density (tens of thousands of galaxies per deg$^2$ with a median redshift of $z \sim 0.7$), PAUS will result in one of the most detailed studies of intermediate-scale cosmic structure ever undertaken. With these features, PAUS has the capability of probing the galaxy clustering in the transition from the linear to the non-linear regime \citep{stothert18_thesis}. Moreover, the study of galaxy groups will be further improved as spectroscopic surveys are either too sparse (e.g. BOSS), too shallow (e.g. GAMA), too narrow (e.g. COSMOS) or a combination of those characteristics (e.g. VIPERS).
+Thanks to its depth and number density (tens of thousands of galaxies per deg$^2$ with a median redshift of $z \sim 0.7$), PAUS will result in one of the most detailed studies of intermediate-scale cosmic structure ever undertaken. With these features, PAUS has the capability of probing the galaxy clustering in the transition from the linear to the non-linear regime \citep{stothert18_thesis}. Moreover, the study of galaxy groups will be further improved since spectroscopic surveys are either too sparse (e.g. BOSS), too shallow (e.g. GAMA), too narrow (e.g. COSMOS) or a combination of those characteristics (e.g. VIPERS).
 
 Since the study of galaxy groups is a key science driver for PAUS, it must rely on a well grounded group finder code, and here is where my work comes into play. In particular, \cite{stothert18_thesis} showed how a simple Friends of Friends (FoF) algorithm is inadequate to take into account probabilistic redshifts with different accuracies as in the case of PAUS and how a Markov CLustering (MCL) technique is more suitable for a photometric redshift survey like this. Hence, the main purpose of my PhD project is to develop, test and finally apply this innovative MCL algorithm on the PAUS data. 
 
 To do this, a deep understanding of the survey is needed. This has been the direction of my efforts in my first year. I have been part of the validation process of the survey and, attending weekly telecons, I have built the experience needed to deal with a group finder aimed to specifically work on photometric redshifts. 
 
-As part of the process of building experience within the survey, I also took part to the last PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
+As part of the process of building experience within the survey, I also took part to a PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
 
 In the rest of the report I describe other activities which were part of my first year training although not directly connected to the main project. These activities include a two months team project for Procter $\&$ Gamble (P$\&$G) and the use of GALFORM semi-analytic models to finalise a paper draft related to the quenching of star formation activities in galaxies.
 
@@ -216,50 +222,87 @@ For this reason it is important to be aware of which quenching process is potent
 Knowing this, the final test that needs to be done is running GALFORM switching the AGN feedback on and off, and testing which scenario better agrees with VIPERS observations.
 
 
-
-\textcolor{red}{I am here}
 \section{Main project}
 \label{sec:main}
 
 \subsection{PAUS Validation} 
 \label{sub:PAU_val}
-Excluding lectures and CDT events, I invested the most of my first year PhD getting involved in the PAUS collaboration, in particular in the validation of the survey. PAUS is a photometric redhift survey with the main feature being the 40 contiguous narrow band filters. Since it is an ongoing survey, one of the task was to make sure that observations have being carried out with all of the filters. Because of the survey strategy and the format of the CCD, we don't observe each galaxy with all the filters in a row. Instead it is more convenient to move the CCD in a nearly spiral way (observing in dithers rather than single exposures) letting galaxies fall in the 8 different filters that are part of each of the 5 trays. That is why it becomes important to count the number of times that a galaxy have been observed in one particular filter. The number of filters is just one of many potential biases that might arise in an ongoing survey and my task is to check that instead there are no bias both at the observation stage and at the processing stage  (nightly, memba and photo-z pipelines). I did all of this tests in the COSMOS area observed by PAUS, with the possibility of comparing PAUS photometric redshifts with COSMOS spectroscopic redshifts. Now the survey has collected enough data in the W3 field so that in the close future I am ready to do all the tests in this area as well. The others two fields that PAUS is planning to cover are W1 and W4. For those fields the advantage is the overlapping with the VIPERS survey (which has been the main focus of my master project) which offers spectroscopic redshift to be used for comparison with the photometric ones. 
 
-Before processing the W3 data, an important choice about the parent survey had to be done. Since we are dealing with forced photometry, what drove this choice was the half-light radius. In particular we needed to find a survey which overlaps with W3 and that has a similar definition of half-light radius as the one in the COSMOS survey (because we want consistency among all the PAUS fields). So, in this scenario I made both statistical and (where possible) object-by-object comparison among the COSMOS, CFHTLS and CFHTLenS surveys. I finally worked out that the CFHTLenS survey has a radius consistent with the COSMOS data and so suitable for the PAUS/W3 field.
+%INTRO ON PAUCam
+The PAU Survey is currently collecting data using the specifically designed PAUCam \citep{castander12}, an optical wide field imaging camera (1 deg$^2$ Field-of-View, FoV) installed at the prime focus of the William Hershel Telescope (WHT).
+The camera is installed with 6 large ugrizY filters (not used in PAUS), each of those covering the total focal plane and 5 trays with 8 narrow band (NB) filters each (covering the 8 central CCDs) for a total of 40 NB filters. These contiguous NB filters, which are the main feature of PAUS, are 10 nm wide and cover a wavelength range from 450 to 850 nm. \\
 
-One further analysis was aimed to improve the photo-z capability prediction through SED fitting. Specifically the current SED fitting procedure used by the PAUS team is based on a set of fixed emission-line ratio assumptions. A more physical scenario would allow the emission line ratios to vary following specific BPT diagrams. For this reason I have investigated in the literature various BPT diagrams for surveys at similar redshifts with the aim of building an empirical relations. The PAUS collaboration has approved the new scheme of emission line relations and they are going to use it in the next run of the photo-z pipeline. Of course, once they have done it, my next step is to check how much this variation contributes to the estimate of photometric redshifts, comparing the different productions.
+%CHOICE OF THE PARENT CATALOGUE (radius consistency)
+PAUS is aiming to cover the COSMOS field (COSMOS/D2) and the four wide fields of CFHTLS (Fig.~\ref{fig:CFHTLS_fields}: W1, W2, W3 and W4).
+%
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{CFHTLS-FieldsOnFullSky_700ps.jpg}
+\caption{CFHTLS Wide (W1, W2, W3, W4) and deep (D1, D2, D3, D4) fields. Among those fields, PAUS is observing all of the Wide and D2 which corresponds to the COSMOS field. }
+\label{fig:CFHTLS_fields}
+\end{figure}
+%
+For each field, PAUS is collecting photometric images in all of the NBs, with the aim of performing forced aperture photometry. This means that independently on the signal to noise ratio, PAUS takes the position of the galaxies from a parent survey and extract the flux within a certain radius. Information about the radius to be used are also coming from the parent catalogue. For example one choice is to use the half-light radius of a galaxy.
 
-In a very long term view, the experience gained in the PAU survey validation might be useful for the upcoming Multi-Object Optical and Near-infrared Spectrograph (MOONS) survey.
+Early photometric results for galaxies in the COSMOS field, which used COSMOS as a parent survey \citep{scarlata07}, are already available in \cite{eriksen18}. 
 
+When reducing data from the Wide fields, another parent survey needs to be chosen as there is no longer overlap with COSMOS. The choice of this new parent survey is very important and it may introduce any sort of bias, especially if the definition of the radius is different from the one that has been used in the COSMOS field. 
+
+The choice of this new parent catalogue has been an important part of the first year of my PhD. In particular, I analysed two parent surveys: CFHTLS and CFHTLenS. While CFHTLS covers both the Wide and the Deep fields (D1, D2, D3, D4, W1, W2, W3, W4), CFHTLenS covers just the Wide ones (W1, W2, W3, W4). Since COSMOS overlap only with Deep-2 (D2), a comparison \textit{object by object} between PAUS/D2 and CFHTLenS is not possible. hence, the first analysis that I did was a statistical comparison between the distribution of radii in COSMOS/D2 and in CFHTLenS/W3. After that, I used CFHTLS as a ``bridge'' comparing \textit{object by object} COSMOS/D2 with CFHTLS/D2 and then (assuming that all the CFHTLS Deep fields adopt the same definition of radius) I compared CFHTLS/D3 with CFHTLenS/W3. After this analysis I finally worked out that CFHTLenS is the most suitable catalogue to be used for the PAUS Wide fields. \\
+
+%CHECK UNIFORMITY IN NUMBER OF FILTERS
+Another important part of the validation was within the same field. In particular, what we need to check is that all areas of the field has been observed uniformly. I did tests on the PAUS/D2 (i.e. the COSMOS field). Two factors are crucial to test this. First, the redshift accuracy $$\delta z =  \frac{\lvert z_{\rm{spec}}-z_{\rm{phot}}\rvert}{1+z_{\rm{spec}}}$$ needs to be consistent in all the areas of the field. This implies that we have chosen a spectroscopic parent catalogue from which obtaining $z_{\rm{spec}}$. $z_{\rm{spec}}$ is used here as a \textit{true value} since the accuracy in spectroscopic redshift is better than photometric redshift by construction. Second, each area of the sky has been observed with a certain number of NB filters (the maximum number being 40). What we want is to have this number homogeneous. While the redshift accuracy is mainly determined by the quality of observations (one key factor being the seeing, i.e. a parameter quantifying the amount of turbulence in the atmosphere), the different number of filters in different areas comes also from the observation strategy. In fact, to minimise the number of changes of the filter tray (hence to optimise the telescope time), it is preferable to observe contiguous areas of the sky with the same filter tray before changing it. Moreover, each filter tray contains 8 different NB filters in different part of the focal plane. This makes the counting of NB filters per area very important, particularly at the borders of the observed field. \\
+
+%BPT
+Unlike spectroscopic redshift which comes directly from the measure of the shift of specific features in the spectrum, photometric redshifts are derived from the fit of the observed Spectral Energy Distribution (SED) of the galaxy with theoretical stellar population synthesis (SPS) models. To improve the quality of the fit, information about emission lines can be taken into account. In \cite{eriksen18} the choice that has been done for PAUS is to fix a set of emission line ratios as in \cite{ilbert09}. The values of this ratios are shown in Table~2 of \cite{eriksen18}.
+However a better modelling of emission lines can improve even more the determination of photometric redshifts.
+
+For this reason I have spent part of my first year PhD trying to build empirical relations for some specific Baldwin-Philips-Terlevich (BPT) diagrams \citep{baldwin81}. These diagram shows the relation between some specific emission line ratios. The more relevant, considering the PAUS wavelength range, are:
+\begin{itemize}
+\item $\rm{[NII]}_{\lambda6584}$ / $H_{\alpha}\;$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$
+\item $\rm{[SII]}_{\lambda\lambda6717}$ / $H_{\alpha}$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$
+\item $\rm{[OI]}_{\lambda6300}$  / $H_{\alpha} \;\;$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$
+\end{itemize}
+In Fig.~\ref{fig:BPT}, there is an example of the work I have done on the first of the BPTs I have listed above.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.65\textwidth]{BPT.png}
+\caption{Empirical modelling for a particular BPT diagram based on specific emission line ratios, i.e. [NII]$_{\lambda6584}$ / $H_{\alpha}$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$. The data (blue points) comes from the GAMA survey \citep{driver11}. The vertical dashed black line is the PAUS assumption which brings no information about the [OIII]/$H_{\beta}$ ratio as they just fix the [NII]/$H_{\alpha}$ ratio. The yellow filled circles are median values of [OIII]/$H_{\beta}$ in bins of the [NII]/$H_{\alpha}$ ratio. The error bars represent the 25th and 75th percentiles. Other coloured lines are empirical relations for this specific BPT coming from the literature as explained in the legend.}
+\label{fig:BPT}
+\end{figure}
+%
+The data in Fig.~\ref{fig:BPT} shows data (light-blue points) from the GAMA survey \citep{driver11}. The vertical dashed line instead is the PAUS assumption, which is a fixed value for the [NII]/$H_{\alpha}$ ratio. The yellow filled circles represents the median of [OIII]/$H_{\beta}$ for bins of [NII]/$H_{\alpha}$, each 0.1 dex wide. The error bars are obtained from the 25th and 75th percentile. The other coloured line instead comes from the literature as indicated in the legend. We can see that the PAUS assumption, although roughly describe the bulk of the population, may be used just for a first approximation. Using instead a relation like \citealt{faisst18} (dark blue line) can help the SED fitting with a stronger constraint on the emission line ratios, hence a better photometric redshift estimation.  
+I have done a similar work on the other BPT diagrams listed before, providing the PAUS team with a set of empirical relations to be used in the next photometric production. 
+Once this new production is ready, the next step is to analyse how much the new emission lines scheme affect the photo-z results and if it actually enhance the redshift accuracy.
 
 \subsection{PAUS observations}
 \label{sub:PAU_obs}
-In order to understand the nature of the data and to build experience within the survey, last March I took part to the PAUS observational run. The PAU survey is using the William Hershel Telescope (WHT), a 4.2 m diameter telescope based in La Palma (Spain) combined with a large field camera (PAUCam) built appositely for the survey. I have been observing for 7 nights sided by expert observers who taught me how to practically set up the telescope in the afternoon and how to carry out observations during the night. The set up consisted of taking flat fields and bias images while the observation were aimed in covering part of the W3 and W1 fields accordingly to the spiral observing strategy. Galaxies observed with a seeing worse than 2.0 and transparency worse than 0.5 are flagged as ``bad exposure'' and the following night they are selected to be observed again. This observational experience was meant to be a training for the next PAUS observations. In fact, I have been assigned 4 nights for next December observational run.  
+To understand the nature of the data and to build experience within the survey, I took part in a PAUS observational run. 
+The PAU survey is using the William Hershel Telescope (WHT), a 4.2 m diameter telescope based in La Palma (Spain) combined with a large field camera (PAUCam) specially designed for this survey (see \citealt{castander12} for further details). 
+%say something about the telescope?
+I have been observing for 7 nights sided by expert observers who taught me how to practically set up the telescope in the afternoon and how to carry out observations during the night. 
+
+Afternoon calibrations include first checking the temperature and pressure of the camera and then acquiring BIAS and FLAT FIELD images. This procedures are aimed to calibrate the CCD in particular we are setting the right parameters in order to convert a number of electron\footnote{Photons coming from the source strike the CCD that releases electrons that needs to be converted again into a number of photons in order to obtain the flux.} into a number of photons (i.e. the flux). Specifically the BIAS is an image with no light entering in the focal plane and it is obtained simply keeping close the dome and the petals of the telescope. In this way we are setting a certain value of the CCD electric current to be the zero point of our observation. We do this because the CCD works in a linear regime (number of incident photon proportional to the number of electron released) only for certain values of the electric current. The results will be that in case of no photons striking the CCD then the electric current released will be the bias current. The BIAS is just the CCD image generated by this bias current. Hence, every scientific image needs to be bias subtracted to obtain real values of the flux. The reason why the BIAS is an image and not just a number is that every pixel behaves slightly different. Subtracting the BIAS takes into account all of this imperfection of the CCD pixels. Since the BIAS is a calibration with no lights, we also want to calibrate the CCD when it is actually measuring photons. That is why we measure the FLAT FIELD images. These are images of a uniform light source in order to calibrate the slope of the proportionality between photons and electrons released. There are some different techniques to obtain a uniform source of light. One of those is to directly observe the lights of the sunset. In the case of PAUS, there are specifically designed lamps inside the dome which produce uniform light. It is important at this stage to leave the dome close, so that no spurious light from other sources can enter, and open the petals of the telescope, so that the light from the lamp can reach the focal plane. 
+
+After that BIAS and FLAT FIELDS are taken, everything is set to start observing. Observations take place 20 minutes before the end of twilights. This is because the first thing we want to observe is a calibration star. The calibration star is an SDSS star which flux is known in order to compare the measured flux and obtain the so called zero point (that is used to convert the CCD output for the number of photons in units of flux). 
+The observation strategy, i.e. deciding which filter tray, which exposure time and which field to observe, was mainly driven by the position and the fraction of the moon. Basically the purpose is to observe at any time of the night the field that is further from the moon and using a redder filter tray for larger fraction of the moon\footnote{A filter sensitive to redder wavelengths is less sensitive to the presence of the moon.}. The exposure time instead depends on the quality of the sky with worse condition requiring longer time of exposure.
+This observational experience was meant to be a training for next PAUS observations. 
+In fact, I have been assigned 4 nights for next December observational run.  
 
 \section{Future project}
+\label{sec:future}
 \subsection{Group finder}
 \label{sub:group}
-As mentioned in the Introduction, the main purpose of my PhD is to test and (if needed) to improve a group finder algorithm based on the Markov CLustering (MCL) technique. This technique seems to be more reliable (in terms of completeness, purity and variation of information, VI) than a simple Friend of Friend (FoF) technique which preferentially consider large structures as a single group even if they are barely connected. Until now the MCL has been tested only on mock catalogues and it looks promising for a real survey like PAUS. What makes different a real survey from a simulation is the fact that we are limited to work in the redshift space instead of the simulated real space and this has an impact in the MCL code. Running successfully this group finder on the PAUS data might provide some new insights relative to the clustering of galaxies.
+PAUS will result in one of the most detailed studies of intermediate-scale cosmic structure ever undertaken. Even though PAUS will cover a modest area compared to large wide imaging surveys like DES and KiDS, PAUS will increase the number density of galaxies with sub-percent accuracy redshifts by nearly two orders of magnitude, reaching tens of thousands of redshifts per deg$^2$. This will make possible to measure the clustering of galaxies in the transition from the linear to the non-linear regime \citep{stothert18}. For these reasons, one of the key science drivers for PAUS is the study of galaxy groups. 
+Galaxy groups are the observable counterparts to dark matter halos, so detecting galaxy groups can help us infer more about the galaxy-halo connection.
 
+A group finder is an algorithm able to identify galaxy groups having as an input a galaxy catalogue. A variety of group finder algorithm have already been developed, with the most common being the so called Friend-of-Friend (FoF) algorithm. However \cite{stothert18_thesis} pointed out that such an algorithm is not optimised nor ideal to work with probabilistic redshifts, as in the case of a photometric redshift survey like PAUS.
 
+One innovative alternative is to develop a group finder based on the Markov CLustering (MCL) algorithm \citep{dongen00}. \cite{stothert18_thesis}, tested the MCL algorithm in real space on a mock galaxy catalogue constructed from an N-body simulation using the GALFORM semi-analytic model \citep{gonzalez14}. His results show that the widely used FoF algorithm is just a subset of MCL. 
 
-
-
-
-
-
-%check abstract again
-
-% should I mention Outreach week and mini-NBA week ?
-
-
-
-
-
-
+The idea for my future work is to use \cite{stothert18_thesis} as a starting point to develop, test and finally apply an MCL group finder able to work in redshift space, allowing for galaxy redshifts with different uncertainties. I will finally apply this new MCL group finder on the PAUS data and if successful it will be possible to run the algorithm on other photometric redshift surveys.
 
 \bibliography{biblio.bib}
 
-
 \end{document}
- 
