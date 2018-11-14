@@ -44,8 +44,8 @@
 \date{ }
 \author{First Year Progression Review (2017/2018) \\ \\Giorgio Manzoni}
 \maketitle
-\abstract{In this document I report all the work done in my first year of the CDT PhD programme, and the work that I plan to do in the next upcoming years, under the supervision of Peder Norberg and Carlton Baugh. 
-First I give a short introduction (Section~\ref{sec:intro}) meant to be an overview describing the big picture of my project. 
+\abstract{In this document I report all the work done in my first year of the CDT PhD programme, and the work that I plan to do in the next years, under the supervision of Peder Norberg and Carlton Baugh. 
+First I give a short introduction (Section~\ref{sec:intro}) to my PhD project. 
 Then, in Section~\ref{sec:short}, I explain short-term projects carried out in the first year. This section includes the two months team project for \peg and the work I have been doing on the evolution of the colour-magnitude using VIPERS data and GALFORM semi-analytic models.
 Section~\ref{sec:main} is the core of the report as it explains the work done on my main PhD project in the first year.
 I conclude with Section~\ref{sec:future}, which explains how I will continue from the work done to obtain the main results of my PhD, i.e. the development, testing and application of an innovative group finder able to work in redshift space.
@@ -55,41 +55,39 @@ I conclude with Section~\ref{sec:future}, which explains how I will continue fro
 \section{Introduction}
 \label{sec:intro}
 
-The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric redshift survey which is unique since it aims to bridge the gap between small pencil-beam and sparse wide-area spectroscopic galaxy surveys. In fact PAUS is surveying large contiguous areas with high density of galaxies with sub-percent photometric redshift accuracy (\cite{eriksen18}). To achieve this precision, the survey has been designed with 40 contiguous narrow bands (NB) filters, 10 nm wide, ranging from 450 nm to 850 nm. This combination of NB filters makes PAUS up to ten times more precise than any other broad band photometric redshift survey with an accuracy of at least $0.004 (1+z)$ for over $50 \%$ of the galaxies up to $i_{\rm{AB}}\approx 22.5$. 
+The main project of my PhD makes use of the data collected by the Probe of the Accelerating Universe Survey (PAUS). PAUS is an ongoing photometric redshift survey which is unique since it aims to bridge the gap between small pencil-beam and sparse wide-area spectroscopic galaxy surveys. In fact PAUS is surveying large contiguous areas with high density of galaxies with sub-percent photometric redshift accuracy \citep{eriksen18}. To achieve this precision, the survey has been designed with 40 contiguous narrow bands (NB) filters, $\sim10$ nm wide, ranging from 450 nm to 850 nm. This combination of NB filters makes PAUS up to ten times more precise than any other broad band photometric redshift survey with an accuracy of at least $0.004 (1+z)$ for over $50 \%$ of the galaxies up to $i_{\rm{AB}}\approx 22.5$. 
 
 Thanks to its depth and number density (tens of thousands of galaxies per deg$^2$ with a median redshift of $z \sim 0.7$), PAUS will result in one of the most detailed studies of intermediate-scale cosmic structure ever undertaken. With these features, PAUS has the capability of probing the galaxy clustering in the transition from the linear to the non-linear regime \citep{stothert18_thesis}. Moreover, the study of galaxy groups will be further improved since spectroscopic surveys are either too sparse (e.g. BOSS), too shallow (e.g. GAMA), too narrow (e.g. COSMOS) or a combination of those characteristics (e.g. VIPERS).
 
-Since the study of galaxy groups is a key science driver for PAUS, it must rely on a well grounded group finder code, and here is where my work comes into play. In particular, \cite{stothert18_thesis} showed how a simple Friends of Friends (FoF) algorithm is inadequate to take into account probabilistic redshifts with different accuracies as in the case of PAUS and how a Markov CLustering (MCL) technique is more suitable for a photometric redshift survey like this. Hence, the main purpose of my PhD project is to develop, test and finally apply this innovative MCL algorithm on the PAUS data. 
+Since the study of galaxy groups is a key science driver for PAUS, it must rely on a well grounded group finder algorithm, and here is where my work comes into play. In particular, \cite{stothert18_thesis} showed how a simple Friends of Friends (FoF) algorithm is inadequate to take into account probabilistic redshifts with different accuracies as in the case of PAUS and how a Markov CLustering (MCL) technique could be more suitable for a photometric redshift survey like this. The main purpose of my PhD project is to develop, test and finally apply this innovative MCL algorithm to PAUS data and mocks. 
 
 To do this, a deep understanding of the survey is needed. This has been the direction of my efforts in my first year. I have been part of the validation process of the survey and, attending weekly telecons, I have built the experience needed to deal with a group finder aimed to specifically work on photometric redshifts. 
 
-As part of the process of building experience within the survey, I also took part to a PAUS observational run which took place at the William Hershel Telescope (WHT) in La Palma. 
+As part of the process of building experience within the survey, I also took part to a PAUS observing run which took place at the William Hershel Telescope (WHT) in La Palma. 
 
-In the rest of the report I describe other activities which were part of my first year training although not directly connected to the main project. These activities include a two months team project for Procter $\&$ Gamble (P$\&$G) and the use of GALFORM semi-analytic models to finalise a paper draft related to the quenching of star formation activities in galaxies.
+In Section~\ref{sec:short}, I describe other activities which were part of my first year training although not directly connected to the main project. These activities include a two months team project for Procter $\&$ Gamble (P$\&$G) and the use of GALFORM semi-analytic models to finalise a paper draft related to the quenching of star formation activities in galaxies.
 
-
-% just recently touched the group finder --> main task of the second year
-
-
+%-----------------------------------------------------------------------------------------------------------------------
 \section{Short-term projects}
 \label{sec:short}
 
 \subsection{Two months team project with Procter $\&$ Gamble (P$\&$G)}
 \label{sub:peg}
 
-This project is part of the CDT data intensive training. The team were made by three CDT students (Kevin Kwok, Miguel Icaza and I), an internal leader (Richard Bower), and two \peg leaders (Stefan Egan and Arturo Martinez).
+This project is part of the CDT data intensive training. The team were made by three CDT students (Kevin Kwok, Miguel Icaza and I), an internal leader (Richard Bower), and two \peg leaders (Stefan Egan and Arturo Martinez). Note that there is a Non Disclosure Agreement (NDA) in place with P$\&$G. This mean that the content of this section, in particular Equations~\ref{eq:new_penalty}~and~\ref{eq:lasso_mod}, can be read by Durham University Staff only.
 
 The final aim of the project was to help the P$\&$G team to find a more reliable analytic form of the function which describe the density of the laundry powder. The \peg team has previously identified a library of \textit{base functions} suggested by chemistry processes. Each base function might depend on 1 up to 13 of the available ingredients: 
 \begin{equation}
 \label{eq:fi}
 f_i = f_i(x_1, \cdots, x_{13})
 \end{equation}
-They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better: 
+where $f_i$ are the base functions ($i=1,\cdots,N$) and $x_j$ are the ingredients ($j=1,\cdots,13$).
+They made up the density function as a linear combination of those base functions and empirically they have chosen the combination that works better, setting the coefficient of their base functions $f_i$ to their empirical fixed values $\hat a_i$: 
 \begin{equation}
 \label{eq:density}
-\rm{density} = \sum_i^N a_i f_i(x_j)
+\text{density} = \sum_{i=1}^N \hat{a}_i f_i(x_1, \cdots, x_{13})
 \end{equation}
-
+where $N$ is the number of bases functions used.
 
 %
 \begin{figure}
@@ -97,48 +95,59 @@ They made up the density function as a linear combination of those base function
 \begin{subfigure}{.48\textwidth}
    \centering
    \includegraphics[width=0.9\linewidth]{x2.png}
-   \caption{Examples of modified LASSO fits for different $\lambda$s on 60 data points generated from an $x^2$ function ($f_{\rm{true}}(x)=x^2$) with the addition of a gaussian noise with standard deviation 0.9. The fitting function is a third order polynomial.}
-   \label{fig:x2}
 \end{subfigure}\hfill%
 \begin{subfigure}{.48\textwidth}
    \centering
    \includegraphics[width=0.9\linewidth]{x2_coeff.png}
-   \caption{Trend of the parameters of the fitting function ($f_{\rm{fit}}=p_0 + p_1 x + p_2 x^2 + p_3 x^3$) as a function of the $\lambda$ parameter. Since we know $f_{\rm{true}}$, we know that the right answer is $p_2=1$ (red line) and $p_0=p_1=p_3 =0$. This solution is achieved only for $\lambda \gtrsim 0.09$.}
-   \label{fig:x2_coeff}
 \end{subfigure}
-\caption{Example of the performances of the modified LASSO in recovering a known function when some gaussian noise is added.}
+\caption{Example of the performances of the modified LASSO in recovering a known function when some gaussian noise is added. \textbf{Left-hand panel}: examples of modified LASSO fits for different $\lambda$s on 60 data points generated from an $x^2$ function ($f_{\rm{true}}(x)=x^2$) with the addition of a gaussian noise with standard deviation 0.9. The fitting function is a third order polynomial. \textbf{Right-hand panel}: trend of the parameters of the fitting function ($f_{\rm{fit}}=p_0 + p_1 x + p_2 x^2 + p_3 x^3$) as a function of the $\lambda$ parameter. Since we know $f_{\rm{true}}$, we know that the right answer is $p_2=1$ (red line) and $p_0=p_1=p_3 =0$. This solution is achieved only for $\lambda \gtrsim 0.09$. }
 \label{fig:LASSO}
 \end{figure}
 %
 
-The first step to make this process more quantitative is to use Eq.~\ref{eq:density} as a fitting function leaving free the parameters and finding them through the minimisation of the $\chi^2$:
+The first step to make this process more quantitative is to use Eq.~\ref{eq:density} as a fitting function leaving $a_i$ as free parameters and finding them through the minimisation of the $\chi^2$:
+\begin{equation}
+\label{eq:density}
+f_{\rm{fit}} = \sum_{i=1}^N a_i f_i(x_1, \cdots, x_{13})
+\end{equation}
+
 \begin{equation}
 \label{eq:chisquared}
-\chi^2=\sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M}
+\chi^2=\sum_{k=1}^M\frac{(y_k - f_{\rm{fit}}(x_{k_1},\cdots,x_{k_{13}}))^2}{M}
 \end{equation}
-The minimisation of the $\chi^2$, although computationally expensive because of the high number of base functions (hence the high number of parameters $a_i$), will result in the best fit, i.e. the one which minimise the distance to the data points. The best fit is not necessarily what we want as it might rely on our choice of base functions $f_i$ and the specific data-set that we are using ($x_k,y_k$). For example if I modify $f_{\rm{fit}}$ adding a further base function, the $\chi^2$ minimisation will try to use also this further parameter in order to obtain a better fit. The problem of finding the very best fit is that in another data-set it is very unlikely to be the best fit as well. This makes our result not robust.  What we want instead is to realistically find which base functions the density rely on. 
+where N is the number of base functions and M is the number of data-points.
 
-If we succeed in reducing the number of base functions $f_i$ (setting the relative parameter $a_i=0$) we might obtain a further advantage coming from the fact that not all of the $f_i$ depend on all the 13 ingredients $x_j$. For example there might be some of them depending on a single ingredient. In that case (assuming that this ingredient does not appear in other base functions) we learn that this particular ingredient doesn't affect the density at all, and this is particularly relevant for the efficiency of the industrial process.
+The minimisation of the $\chi^2$, although computationally expensive because of the high number of base functions (hence the high number of parameters $a_i$), will result in the best fit, i.e. the one which minimise the distance to the data points. The best fit is not necessarily what we want as it might rely on our choice of base functions $f_i$ and the specific data-set that we are using ($x_k,y_k$). 
+For example if we add a further base function to the current set of base functions, the $\chi^2$ minimisation will also make use of this further base function to obtain a better fit. This makes the resulting fit dependent on our arbitrary choice to add a base function. 
+At the same time, if we change data-set ($x_k,y_k$), the fit obtained with the old data-set will not minimise the $\chi^2$ any longer (as the best fit is the best for a specific data-set). This makes our results data dependent, hence not robust. 
+That is why, it is better to find a fit that is slightly worse than the $\chi^2$ one in a specific data-set but that is still good when we change data-set.
+
+The two problems (arbitrary choice of base functions and having a data-dependent fit) are related. In particular, the more base functions we use, the more the $\chi^2$ fit will be data-dependent (the so-called \textit{overfitting problem}). Therefore it seems that minimising the number of base functions can help to have a more robust fit.
+
+If we succeed in reducing the number of base functions $f_i$ (setting the relative parameter $a_i=0$) we might obtain a further advantage coming from the fact that not all of the $f_i$ depend on all the 13 ingredients $x_j$. For example there might be some of them depending on a single ingredient (e.g. $f_{i_0} = f_{i_0}(x_7)$ instead of $f_{i_0} = f_{i_0}(x_1,\cdots,x_{13})$). In that case (assuming that the ingredient $x_7$ does not appear in any other base functions $f_i$ with $i\neq i_0$) we learn that this particular ingredient doesn't affect the density at all, and this is particularly relevant for the efficiency of the industrial process\footnote{Although it sounds like a very unlikely situation, it is very likely for the real \peg case.}. \\
 
 A possible way to address (at least partially) this problem is to use the Least Absolute Shrinkage and Selection Operator (LASSO, \citealt{LASSO}) which basically add a \textit{penalty term} to the usual $\chi^2$ in order to penalise the sum of the parameters, i.e. favouring a fit with a small value of $\sum_{i=1}^N \lvert  a_i \rvert$. The classic analytic form of LASSO is the following: 
 %
 \begin{equation}
 \label{eq:lasso_classic}
-\rm{LASSO} = \boxed{ \sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M} + \lambda\sum_{i=1}^N {\lvert} a_i {\rvert}} \equiv \chi^2 + \rm{Penalty}
+\rm{LASSO} = \boxed{ \sum_{k=1}^M\frac{(y_k - f_{\rm{fit}}(x_{k_1},\cdots,x_{k_{13}}))^2}{M} + \lambda\sum_{i=1}^N {\lvert} a_i {\rvert}} \equiv \chi^2 + \rm{Penalty}
 \end{equation}
 %
-where M is the number of data points and N is the number of base functions and $\lambda$ is a free parameter that we can tune case by case (the choice of the perfect $\lambda$ is still an open debate and one possible idea might be to use a machine learning approach to train the algorithm on cases with a known solution). This helps to discard the base functions that are not extremely relevant as, when minimising Eq. ~\ref{eq:lasso_classic}, a fit with a lot of bases function will result in a bigger penalty term, hence favouring a solution made by a linear combination with a lot of parameter set to zero.
+where, as always, M is the number of data points, N is the number of base functions and $\lambda$ is a free parameter that we can tune case by case (the choice of the perfect $\lambda$ is still an open debate and one possible idea might be to use a machine learning approach to train the algorithm on cases with a known solution). 
+This helps to discard the base functions that are not extremely relevant as, when minimising Eq. ~\ref{eq:lasso_classic}, a fit with a lot of bases function will result in a bigger penalty term than a fit with less bases functions.
 
-However, we realised that the traditional LASSO as in Eq.~\ref{eq:lasso_classic} is not perfectly calibrated to work with all the possible scenarios as it minimises the sum of the absolute values of the parameters and not the number of them (small $a_i$ is different from $a_i=0$). So we developed a new \textit{modified LASSO} to deal with this problem. In particular we slightly changed the penalty function in this way:
+However, we noticed that the traditional LASSO as in Eq.~\ref{eq:lasso_classic} may be improved to work in a P$\&$G-like case, where we want to minimise only the number of functions and not the actual value of the function coefficients $\lvert a_i\rvert$ (while in the traditional LASSO we are minimising both). In fact minimising the current penalty will result in favouring solutions with small values of $\lvert a_i\rvert$ that is different from favouring a solution with exactly $a_i=0$ (having some $a_i=0$ means having less base functions). So we developed a new \textit{modified LASSO} to deal with this problem. In particular we slightly changed the penalty function in this way:
 %
 \begin{equation}
 \label{eq:new_penalty}
-\text{New Penalty} = \lambda \left[ \left( \sum_{i=0}^N \lvert a_i \rvert \right)^2 - \left(\sum_{i=0}^N a_i^2\right)\right]
+\text{New Penalty} = \lambda \left[ \left( \sum_{i=1}^N \lvert a_i \rvert \right)^2 - \left(\sum_{i=1}^N a_i^2\right)\right]
 \end{equation}
 %
-In this new penalty function parameters that are zero are favoured as they appeared only in cross terms. For example, let us assume we have just 3 parameters, the new penalty will be: $(a_1 + a_2 + a_3)^2 - a_1^2 -a_2^2 - a_3^2 = 2 a_1a_2 + 2 a_1a_3 +2a_2a_3$. If one of the parameters is null, it will make null the product with another parameter and this will make the penalty smaller than having small non zero parameters. 
+In this new penalty function parameters that are zero are favoured as they appeared only in cross terms. For example, let us assume we have just 3 parameters. The new penalty will be: $(|a_1| + |a_2| + |a_3|)^2 - a_1^2 -a_2^2 - a_3^2 = |2 a_1a_2| + |2 a_1a_3| +|2a_2a_3|$. If one of the parameters is null, it will make null the product with another parameter and this will make the penalty smaller than having small non zero parameters. 
 
-Another problem we faced was the fact that as long as we do not normalise the base functions, different parameters could affect in very different ways the LASSO functions, hence the result of the fit. For example if a base function is $f_{i_0} = x$ or $f_{i_1} = 5x$, the parameter $a_{i_0}$ and $a_{i_1}$ will have the same weight in the penalty function ignoring the fact that they carry different information. That is why we decided to normalise the data and the base function image in the following way:
+Another improvement that can be done in order to make the LASSO technique more effective is the normalisation of the base functions. 
+Although logically the normalisation is the first thing to do, I introduce it only now because is part of our improvement to LASSO that until now has always been used in the literature without any normalisation.
+Specifically, the problem that we want to address is that as long as we do not normalise the base functions, different parameters could affect in very different ways the LASSO functions, hence the result of the fit. For example if a base function is $f_{i_0} = x$ or $f_{i_1} = 5x$, the parameter $a_{i_0}$ and $a_{i_1}$ will have the same weight in the penalty function ignoring the fact that they carry different information. That is why we decided to normalise the data and the base function image in the following way:
 \begin{equation}
 \hat x = \frac{x - x_{\rm{min}}}{x_{\rm{max}}-x_{\rm{min}}} \quad
 \hat y = \frac{y - y_{\rm{min}}}{y_{\rm{max}}-y_{\rm{min}}} \quad
@@ -147,10 +156,10 @@ Another problem we faced was the fact that as long as we do not normalise the ba
 %
 where $x \in [x_{\rm{min}},x_{\rm{max}}] \Rightarrow \hat x \in [0,1]$, $y \in [y_{\rm{min}},y_{\rm{max}}] \Rightarrow \hat y \in [0,1]$ and $f(x) \in [f_{\rm{min}}(x),f_{\rm{max}}(x)] \Rightarrow \hat f (\hat x) \in [0,1]$.
 %
-To deal with normalised variables, also the $\chi^2$ needs to be normalised in order to have the same order of magnitude of the penalty function. We managed it introducing the $\epsilon^2$ parameter which is essentially the minimum value of the $\chi^2$ (without the penalty) to normalise our modified LASSO to 1 when $\lambda =0$:
+To deal with normalised variables, also the $\chi^2$ needs to be normalised in order to have the same order of magnitude of the penalty function. We introduce the $\epsilon^2$ parameter which is the minimum value of the $\chi^2$ (without the penalty) to normalise our modified LASSO to 1 when $\lambda =0$:
 %
 \begin{equation}
-\epsilon^2 = \rm{min}\left\lbrace \sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M}
+\epsilon^2 = \rm{min}\left\lbrace \sum_{k=1}^M\frac{(y_k - f_{\rm{fit}}(x_{k_1},\cdots,x_{k_{13}}))^2}{M}
  \right\rbrace
 \end{equation}
 %
@@ -158,18 +167,18 @@ With those definitions, our modified lasso acquire the following form:
 
 \begin{equation}
 \label{eq:lasso_mod}
-\text{MODIFIED LASSO} = \boxed{\frac{1}{\epsilon^2}  \sum_{k=0}^M\frac{(y_k - f_{\rm{fit}}(x_k))^2}{M} + \lambda \left[ \left( \sum_{i=0}^N \lvert a_i \rvert \right)^2 - \left(\sum_{i=0}^N a_i^2\right)\right]}
+\text{MODIFIED LASSO} = \boxed{\frac{1}{\epsilon^2}  \sum_{k=1}^M\frac{(y_k - f_{\rm{fit}}(x_{k_1},\cdots,x_{k_{13}}))^2}{M} + \lambda \left[ \left( \sum_{i=1}^N \lvert a_i \rvert \right)^2 - \left(\sum_{i=1}^N a_i^2\right)\right]}
 \end{equation}
 
  To test our new implementation of LASSO, we created increasingly difficult known functions (rising the number of variables and combining polynomials with exponentials terms). After having added various kinds of noise with different amplitudes, we tried to recover the original functions, fitting with the \emph{modified LASSO} of Eq.~\ref{eq:lasso_mod}. 
  
- A simple scenario is shown in Fig.~\ref{fig:LASSO} where we generated 60 data-points using the function $f_{\rm{true}} = x^2$ with additional gaussian noise with a standard deviation of 0.9. We fitted the data-point using a third order polynomial $f_{\rm{fit}}(x)=a_0 + a_1x  + a_2x^2 + a_3 x^3$ knowing that the solution is $a_2=1$ and $a_0=a_1=a_3=0$. Although, looking at the left panel, the fits for different $\lambda$s do not look very different, in the right panel we notice that we recover the true solution only for $\lambda \gtrsim 0.09$. Picking the right $\lambda$ is not trivial, and currently there are no rules in the literature to decide which is the right value. In the future, it might be interesting to train our algorithm to choose the right $\lambda$ using known case studies like the $x^2$ one.
+ A simple scenario is shown in Fig.~\ref{fig:LASSO} where we generated 60 data-points using the function $f_{\rm{true}} = x^2$ with additional Gaussian noise with a standard deviation of 0.9. We fitted the data-point using a third order polynomial $f_{\rm{fit}}(x)=a_0 + a_1x  + a_2x^2 + a_3 x^3$ knowing that the solution is $a_2=1$ and $a_0=a_1=a_3=0$. Although, looking at the left panel, the fits for different $\lambda$ do not look very different, in the right panel we notice that we recover the true solution only for $\lambda \gtrsim 0.09$. Picking the right $\lambda$ is not trivial, and currently there are no rules in the literature to decide which is the right value. In the future, it might be interesting to train our algorithm to choose the right $\lambda$ using known case studies like the $x^2$ one.
 
-
+%-----------------------------------------------------------------------------------------------------------------------
 \subsection{The quenching of star-formation in VIPERS and GALFORM}
 \label{sub:vipers}
 
-In September I attended the workshop ``Understanding Emission-line galaxies for the next generation of cosmological survey'' in Teruel (Spain). 
+In September 2018 I attended the workshop ``Understanding Emission-line galaxies for the next generation of cosmological survey'' in Teruel (Spain). 
 On that occasion I presented the work done in my master project which studied the redshift evolution of the colour-magnitude relation in galaxies with the aim of getting insights on the quenching of star-formation (SF) activity. For this project I have used data from the VIMOS Public Extragalactic Redshift Survey (VIPERS, \citealt{guzzo14,scodeggio16})\footnote{The data I have used comes from the second (and complete) Public Data Release (PDR-2) which is now available at \url{http://vipers.inaf.it/}. }, a spectroscopic survey which covers $23.5$ deg$^2$ at intermediate redshifts ($0.4<z<1.3$).
 
  Specifically I studied the evolution of the bright-edge of the colour-magnitude for 7 different redshift bins, as shown in Fig.~\ref{fig:vipers}. 
@@ -181,10 +190,10 @@ On that occasion I presented the work done in my master project which studied th
 \label{fig:vipers}
 \end{figure}
  %
- The bright-edge is a good tracer of the star formation activity as it is determined by the population of bright galaxies that are progressively disappearing. The speed at which it moves with redshift might be related to the quenching of star-formation activity that pushes individual galaxies to move into the red sequence of quiescent galaxies. The faint-end of the colour-magnitude diagram instead does not bring any information at all as it is determined by the deep of the survey (in the case of VIPERS, the cut is at $i_{\rm{AB}}<22.5$). 
+ The bright-edge is a good tracer of the star formation activity as it is determined by the population of bright galaxies that are getting fainter because of a change in star-formation activity. The speed at which the bright-edge moves with redshift might be related to the quenching of star-formation activity that pushes individual galaxies to move into the red sequence of quiescent galaxies. The faint-end of the colour-magnitude diagram instead does not bring any information at all as it is determined by the depth of the survey (in the case of VIPERS, the cut is at $i_{\rm{AB}}<22.5$). 
 
-To consistently identify the bright-edge, I have developed an algorithm which marks this feature when the number density in magnitude bins drops down a certain percentage of the most populated bin (see thick lines in Fig.~\ref{fig:vipers}). 
-The trend in Fig.~\ref{fig:vipers} shows that the bright-edge at high redshifts is defined by galaxies that are clearly brighter than those at low redshift. 
+To consistently identify the bright-edge, I have developed an algorithm which, after having splitted the colour-magnitude diagram in colours bins, it fixes the edge when the distribution of magnitudes drops below a certain percentage of the most populated magnitude bin (see thick lines in Fig.~\ref{fig:vipers}). 
+The trend in Fig.~\ref{fig:vipers} shows that the bright-edge at high redshifts is defined by galaxies that are clearly brighter than those at low redshift (galaxies at high redshift are brighter than what is observed at low redshift). 
 
 One way of getting some information on the star-formation activity of galaxies exploiting what we know about the location of the bright-edge is to build some stellar population synthesis models. 
 In particular, I have used the PEGASE 2 code to generate these models in order to try and reproduce the evolution of the bright-edge, testing different star formation histories (SFH, i.e star-formation rate (SFR) as a function of time) with and without a quenching event\footnote{When I speak about a quenching event, I refer to the suppression of the star-formation of a galaxy in a maximum interval of time of 100,000 years (which corresponds to the resolution of the PEGASE models).} occurring. 
@@ -206,11 +215,12 @@ In particular, Fig.~\ref{fig:vipers_results} shows the comparisons between the o
 %
 where $t$ is the cosmic time and $\tau$ is the unique parameter which sets the delay. In this scenario, there is no quenching occurring. In the center panel I introduced a quenching (SFR instantaneously\footnote{Instantaneously means a time of 100,000 years, i.e. the resolution of PEGASE models.} brought to zero) for all the galaxies at the epoch of observation, that in this case is $z\sim 1.11$. The rights panel instead shows a scenario in which each galaxy experience the quenching at a random time between the epoch of observation and a time interval of 3 Gyrs afterwards. This guarantee that after 3 Gyrs all the galaxies in the sample are quenched. 
 
-The agreement between the observed bright-edge and the synthetic one (blue and red line respectively, in Fig. ~\ref{fig:vipers_results}) can be used as an indicator of which synthetic SFH better reproduce the data, hence which quenching scenario is more realistic. In the ``no quenching scenario'' (left panel) the evolution of galaxies seems to mild, leaving a lot of blue and bright star-forming galaxies surviving at low redshift, in contrast with observations. In the central panel instead, where all the galaxies are quenched exactly at the epoch of observations, the evolution looks too fast bringing all the synthetic galaxies at low redshift to be in the red sequence with no galaxies left in the blue cloud. 
+The agreement between the observed bright-edge and the synthetic one (blue and red line respectively, in Fig. ~\ref{fig:vipers_results}) can be used as an indicator of which synthetic SFH better reproduce the data, hence which quenching scenario is more realistic. In the ``no quenching scenario'' (left panel) the evolution of galaxies seems too mild, leaving a lot of blue and bright star-forming galaxies surviving at low redshift, in contrast with observations. In the central panel instead, where all the galaxies are quenched exactly at the epoch of observations, the evolution looks too fast bringing all the synthetic galaxies at low redshift to be in the red sequence with no galaxies left in the blue cloud. 
 
 Finally the conclusion of this work is that a scenario in which galaxies are randomly quenched within an interval time of 3 Gyrs (right panel) seems to be the one that produce a better agreement between the observed and the synthetic reproduced bright-edge, hence a better modelling of the SFH. \\ 
 
-For this project I have an advanced paper draft (attached to this document). In Teruel workshop I received some good feedback about how to make these results more robust. One of the suggestion I am still working on is the comparison of these results with the ones obtained from semi-analytics models, in particular I am using the \cite{gonzalez14} version of  GALFORM (GP14).
+For this project I have an advanced paper draft (attached to this document). At the Teruel workshop I received some good feedback about how to make these results more robust. 
+One of the suggestions I am still working on is the comparison of these results with the ones obtained from a semi-analytic galaxy formation model, in particular I am using the \cite{gonzalez14} version of  GALFORM (GP14).
 
 The advantage of semi-analytics models is that we can actually see the behaviour of progenitor galaxies following a specific branch of the merger tree. In this way we can study how related galaxies move in the colour-magnitude diagram. This is something we can not do with real data as we do not have information about the connection between galaxies at different redshift.
 
@@ -221,7 +231,9 @@ For this reason it is important to be aware of which quenching process is potent
 
 Knowing this, the final test that needs to be done is running GALFORM switching the AGN feedback on and off, and testing which scenario better agrees with VIPERS observations.
 
+A realistic timescale to finish off this project and submit the paper (while continue to work on my main project described in Section~\ref{sec:main}) is late January.
 
+%-----------------------------------------------------------------------------------------------------------------------
 \section{Main project}
 \label{sec:main}
 
@@ -248,16 +260,43 @@ Early photometric results for galaxies in the COSMOS field, which used COSMOS as
 
 When reducing data from the Wide fields, another parent survey needs to be chosen as there is no longer overlap with COSMOS. The choice of this new parent survey is very important and it may introduce any sort of bias, especially if the definition of the radius is different from the one that has been used in the COSMOS field. 
 
-The choice of this new parent catalogue has been an important part of the first year of my PhD. In particular, I analysed two parent surveys: CFHTLS and CFHTLenS. While CFHTLS covers both the Wide and the Deep fields (D1, D2, D3, D4, W1, W2, W3, W4), CFHTLenS covers just the Wide ones (W1, W2, W3, W4). Since COSMOS overlap only with Deep-2 (D2), a comparison \textit{object by object} between PAUS/D2 and CFHTLenS is not possible. hence, the first analysis that I did was a statistical comparison between the distribution of radii in COSMOS/D2 and in CFHTLenS/W3. After that, I used CFHTLS as a ``bridge'' comparing \textit{object by object} COSMOS/D2 with CFHTLS/D2 and then (assuming that all the CFHTLS Deep fields adopt the same definition of radius) I compared CFHTLS/D3 with CFHTLenS/W3. After this analysis I finally worked out that CFHTLenS is the most suitable catalogue to be used for the PAUS Wide fields. \\
+The choice of this new parent catalogue has been an important part of the first year of my PhD. In particular, I analysed two parent surveys: CFHTLS and CFHTLenS. While CFHTLS covers both the Wide and the Deep fields (D1, D2, D3, D4, W1, W2, W3, W4), CFHTLenS covers just the Wide ones (W1, W2, W3, W4). Since COSMOS overlap only with Deep-2 (D2), a comparison \textit{object by object} between PAUS/D2 and CFHTLenS is not possible. hence, the first analysis that I did was a statistical comparison between the distribution of radii in COSMOS/D2 and in CFHTLenS/W3. After that, I used CFHTLS as a ``bridge'' comparing \textit{object by object} COSMOS/D2 with CFHTLS/D2 and then (assuming that all the CFHTLS Deep fields adopt the same definition of radius) I compared CFHTLS/D3 with CFHTLenS/W3. 
+% --> After this analysis I finally worked out that CFHTLenS is the most suitable catalogue to be used for the PAUS Wide fields. \\
+
+Both the distribution from CFHTLS radii and from CFHTLenS are consistent to the COSMOS one. However to make the result more precise we can apply a linear transformation to the radii. I found this relation imposing the median and the $\sigma_{68}$ of the distribution to be the same: 
+\begin{equation*}
+\text{median} (a+ b \times r_{\rm{new}}) := \text{median}(r_{\rm{COSMOS}})
+\end{equation*}
+\begin{equation}
+\label{eq:linear_trans}
+\sigma_{68} (a+ b \times r_{\rm{new}}) := \sigma_{68}(r_{\rm{COSMOS}})
+\end{equation}
+Doing the math, I worked out that:
+\begin{equation*}
+a = \text{median}(r_{\rm{COSMOS}}) - \frac{\sigma_{68}(r_{\rm{COSMOS}})}{\sigma_{68}(r_{\rm{new}})} \times \text{median}(r_{\rm{new}})
+\end{equation*}
+\begin{equation}
+\label{eq:linear_coeff}
+b = \frac{\sigma_{68}(r_{\rm{COSMOS}})}{\sigma_{68}(r_{\rm{new}})}
+\end{equation}
+The PAUS collaboration decided to use CFHTLenS because it has been designed for lensing purposes and this is one of the goals also for PAUS.
+Using Equations~\ref{eq:linear_trans}~and~\ref{eq:linear_coeff} I found the values to transform CFHTLenS radii in COSMOS-like radii:
+\begin{equation}
+r_{\rm{COSMOS-like}} = -0.043 + 1.757 \times r_{\rm{CFHTLenS}}
+\end{equation}
+This is the relation that the PAUS collaboration has used to obtain radii for the forced photometry in W3. \\
+
+
 
 %CHECK UNIFORMITY IN NUMBER OF FILTERS
-Another important part of the validation was within the same field. In particular, what we need to check is that all areas of the field has been observed uniformly. I did tests on the PAUS/D2 (i.e. the COSMOS field). Two factors are crucial to test this. First, the redshift accuracy $$\delta z =  \frac{\lvert z_{\rm{spec}}-z_{\rm{phot}}\rvert}{1+z_{\rm{spec}}}$$ needs to be consistent in all the areas of the field. This implies that we have chosen a spectroscopic parent catalogue from which obtaining $z_{\rm{spec}}$. $z_{\rm{spec}}$ is used here as a \textit{true value} since the accuracy in spectroscopic redshift is better than photometric redshift by construction. Second, each area of the sky has been observed with a certain number of NB filters (the maximum number being 40). What we want is to have this number homogeneous. While the redshift accuracy is mainly determined by the quality of observations (one key factor being the seeing, i.e. a parameter quantifying the amount of turbulence in the atmosphere), the different number of filters in different areas comes also from the observation strategy. In fact, to minimise the number of changes of the filter tray (hence to optimise the telescope time), it is preferable to observe contiguous areas of the sky with the same filter tray before changing it. Moreover, each filter tray contains 8 different NB filters in different part of the focal plane. This makes the counting of NB filters per area very important, particularly at the borders of the observed field. \\
+One important science goal for PAUS is clustering studies. To study the clustering of galaxies, it is essential that observations have been carried out uniformly in every part of the observed field. Every sort of inhomogeneity will affect the clustering. I did tests on the PAUS/D2 (i.e. the COSMOS field) to check that instead there are no bias due to observations. Two factors are crucial to test this. First, the redshift accuracy $$\delta z =  \frac{\lvert z_{\rm{spec}}-z_{\rm{phot}}\rvert}{1+z_{\rm{spec}}}$$ needs to be consistent in all the areas of the field. This implies that we have chosen a spectroscopic parent catalogue from which obtaining $z_{\rm{spec}}$. $z_{\rm{spec}}$ is used here as a \textit{true value} since the accuracy in spectroscopic redshift is better than photometric redshift by construction. Second, each area of the sky has been observed with a certain number of NB filters (the maximum number being 40). To guarantee that the counting of galaxies (hence the clustering) is reliable, we want to have this number homogeneous. While the redshift accuracy is mainly determined by the quality of observations (one key factor being the seeing, i.e. a parameter quantifying the amount of turbulence in the atmosphere), the different number of filters in different areas comes also from the observation strategy. In fact, to minimise the number of changes of the filter tray (hence to optimise the telescope time), it is preferable to observe contiguous areas of the sky with the same filter tray before changing it. Moreover, each filter tray contains 8 different NB filters in different part of the focal plane. This makes the counting of NB filters per area very important, particularly at the borders of the observed field. 
+In order to repeat all of these tests on every production released by the PAUS data management team, I am developing a pipeline to produce all the relevant plots automatically. \\
 
 %BPT
 Unlike spectroscopic redshift which comes directly from the measure of the shift of specific features in the spectrum, photometric redshifts are derived from the fit of the observed Spectral Energy Distribution (SED) of the galaxy with theoretical stellar population synthesis (SPS) models. To improve the quality of the fit, information about emission lines can be taken into account. In \cite{eriksen18} the choice that has been done for PAUS is to fix a set of emission line ratios as in \cite{ilbert09}. The values of this ratios are shown in Table~2 of \cite{eriksen18}.
 However a better modelling of emission lines can improve even more the determination of photometric redshifts.
 
-For this reason I have spent part of my first year PhD trying to build empirical relations for some specific Baldwin-Philips-Terlevich (BPT) diagrams \citep{baldwin81}. These diagram shows the relation between some specific emission line ratios. The more relevant, considering the PAUS wavelength range, are:
+For this reason I have considered empirical relations for some specific Baldwin-Philips-Terlevich (BPT) diagrams \citep{baldwin81}. These diagram shows the relation between some specific emission line ratios. The more relevant, considering the PAUS wavelength range, are:
 \begin{itemize}
 \item $\rm{[NII]}_{\lambda6584}$ / $H_{\alpha}\;$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$
 \item $\rm{[SII]}_{\lambda\lambda6717}$ / $H_{\alpha}$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$
@@ -268,7 +307,7 @@ In Fig.~\ref{fig:BPT}, there is an example of the work I have done on the first 
 \begin{figure}
 \centering
 \includegraphics[width=0.65\textwidth]{BPT.png}
-\caption{Empirical modelling for a particular BPT diagram based on specific emission line ratios, i.e. [NII]$_{\lambda6584}$ / $H_{\alpha}$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$. The data (blue points) comes from the GAMA survey \citep{driver11}. The vertical dashed black line is the PAUS assumption which brings no information about the [OIII]/$H_{\beta}$ ratio as they just fix the [NII]/$H_{\alpha}$ ratio. The yellow filled circles are median values of [OIII]/$H_{\beta}$ in bins of the [NII]/$H_{\alpha}$ ratio. The error bars represent the 25th and 75th percentiles. Other coloured lines are empirical relations for this specific BPT coming from the literature as explained in the legend.}
+\caption{Empirical modelling for a particular BPT diagram based on specific emission line ratios, i.e. [NII]$_{\lambda6584}$ / $H_{\alpha}$ versus $\rm{[OIII]}_{\lambda 5700} \, / \, H_{\beta}$. The data (blue points) comes from the GAMA survey \citep{driver11}. The vertical dashed black line is the PAUS assumption which brings no information about the [OIII]/$H_{\beta}$ ratio as they just fix the [NII]/$H_{\alpha}$ ratio. The yellow filled circles are median values of [OIII]/$H_{\beta}$ in bins of the [NII]/$H_{\alpha}$ ratio. The error bars represent the 25th and 75th percentiles. \cite{brinchmann08} and \cite{faisst18} (orange and blue line respectively) provide empirical relations for this specific BPT diagram. \cite{kewley01} instead (red line) provide an empirical relation to separate star forming galaxies (below the red line) and AGN (above the red line).}
 \label{fig:BPT}
 \end{figure}
 %
@@ -276,24 +315,25 @@ The data in Fig.~\ref{fig:BPT} shows data (light-blue points) from the GAMA surv
 I have done a similar work on the other BPT diagrams listed before, providing the PAUS team with a set of empirical relations to be used in the next photometric production. 
 Once this new production is ready, the next step is to analyse how much the new emission lines scheme affect the photo-z results and if it actually enhance the redshift accuracy.
 
+%-----------------------------------------------------------------------------------------------------------------------
 \subsection{PAUS observations}
 \label{sub:PAU_obs}
-To understand the nature of the data and to build experience within the survey, I took part in a PAUS observational run. 
+To understand the nature of the data and to build experience within the survey, I took part in a PAUS observing run. 
 The PAU survey is using the William Hershel Telescope (WHT), a 4.2 m diameter telescope based in La Palma (Spain) combined with a large field camera (PAUCam) specially designed for this survey (see \citealt{castander12} for further details). 
 %say something about the telescope?
 I have been observing for 7 nights sided by expert observers who taught me how to practically set up the telescope in the afternoon and how to carry out observations during the night. 
 
-Afternoon calibrations include first checking the temperature and pressure of the camera and then acquiring BIAS and FLAT FIELD images. This procedures are aimed to calibrate the CCD in particular we are setting the right parameters in order to convert a number of electron\footnote{Photons coming from the source strike the CCD that releases electrons that needs to be converted again into a number of photons in order to obtain the flux.} into a number of photons (i.e. the flux). Specifically the BIAS is an image with no light entering in the focal plane and it is obtained simply keeping close the dome and the petals of the telescope. In this way we are setting a certain value of the CCD electric current to be the zero point of our observation. We do this because the CCD works in a linear regime (number of incident photon proportional to the number of electron released) only for certain values of the electric current. The results will be that in case of no photons striking the CCD then the electric current released will be the bias current. The BIAS is just the CCD image generated by this bias current. Hence, every scientific image needs to be bias subtracted to obtain real values of the flux. The reason why the BIAS is an image and not just a number is that every pixel behaves slightly different. Subtracting the BIAS takes into account all of this imperfection of the CCD pixels. Since the BIAS is a calibration with no lights, we also want to calibrate the CCD when it is actually measuring photons. That is why we measure the FLAT FIELD images. These are images of a uniform light source in order to calibrate the slope of the proportionality between photons and electrons released. There are some different techniques to obtain a uniform source of light. One of those is to directly observe the lights of the sunset. In the case of PAUS, there are specifically designed lamps inside the dome which produce uniform light. It is important at this stage to leave the dome close, so that no spurious light from other sources can enter, and open the petals of the telescope, so that the light from the lamp can reach the focal plane. 
+Afternoon calibrations include first checking the temperature and pressure of the camera and then acquiring BIAS and FLAT FIELD images. This procedures are aimed to calibrate the CCD in particular we are setting the right parameters in order to convert a number of electron\footnote{Photons coming from the source strike the CCD that releases electrons that needs to be converted again into a number of photons in order to obtain the flux.} into a number of photons (i.e. the flux). Specifically the BIAS is an image with no light entering in the focal plane and it is obtained simply keeping close the dome and the petals of the telescope. In this way we are setting a certain value of the CCD electric current to be the zero point of our observation. We do this because the CCD works in a linear regime (number of incident photon proportional to the number of electron released) only for certain values of the electric current. The results will be that in case of no photons striking the CCD then the electric current released will be the bias current. The BIAS is just the CCD image generated by this bias current. Hence, every scientific image needs to be bias subtracted to obtain real values of the flux. The reason why the BIAS is an image and not just a number is that every pixel behaves slightly differently. Subtracting the BIAS takes into account all of this imperfection of the CCD pixels. Since the BIAS is a calibration with no lights, we also want to calibrate the CCD when it is actually measuring photons. That is why we measure the FLAT FIELD images. These are images of a uniform light source in order to calibrate the slope of the proportionality between photons and electrons released. There are some different techniques to obtain a uniform source of light. One of those is to directly observe the lights of the sunset. In the case of PAUS, there are specifically designed lamps inside the dome which produce uniform light. It is important at this stage to leave the dome close, so that no spurious light from other sources can enter, and open the petals of the telescope, so that the light from the lamp can reach the focal plane. 
 
 After that BIAS and FLAT FIELDS are taken, everything is set to start observing. Observations take place 20 minutes before the end of twilights. This is because the first thing we want to observe is a calibration star. The calibration star is an SDSS star which flux is known in order to compare the measured flux and obtain the so called zero point (that is used to convert the CCD output for the number of photons in units of flux). 
-The observation strategy, i.e. deciding which filter tray, which exposure time and which field to observe, was mainly driven by the position and the fraction of the moon. Basically the purpose is to observe at any time of the night the field that is further from the moon and using a redder filter tray for larger fraction of the moon\footnote{A filter sensitive to redder wavelengths is less sensitive to the presence of the moon.}. The exposure time instead depends on the quality of the sky with worse condition requiring longer time of exposure.
-This observational experience was meant to be a training for next PAUS observations. 
-In fact, I have been assigned 4 nights for next December observational run.  
+The observation strategy, i.e. deciding which filter tray, which exposure time and which field to observe, was mainly driven by the moon phase and position on the sky. Basically the purpose is to observe at any time of the night the field that is further from the moon and using a redder filter tray for larger fraction of the moon\footnote{Since the moon light peaks at blu wavelengths, a filter sensitive to redder wavelengths is less sensitive to the presence of the moon.}. The exposure time instead depends on the quality of the sky with worse condition requiring longer time of exposure.
 
-\section{Future project}
+This observing experience was meant to be a training for next PAUS observations and to get hands on experience with the acquisition of the data that is to be analysed as part of my PhD thesis. 
+In fact, I have been assigned 4 nights for next December 2018-B observing run.  
+
+%-----------------------------------------------------------------------------------------------------------------------
+\section{Future project: Galaxy groups in PAUS}
 \label{sec:future}
-\subsection{Group finder}
-\label{sub:group}
 PAUS will result in one of the most detailed studies of intermediate-scale cosmic structure ever undertaken. Even though PAUS will cover a modest area compared to large wide imaging surveys like DES and KiDS, PAUS will increase the number density of galaxies with sub-percent accuracy redshifts by nearly two orders of magnitude, reaching tens of thousands of redshifts per deg$^2$. This will make possible to measure the clustering of galaxies in the transition from the linear to the non-linear regime \citep{stothert18}. For these reasons, one of the key science drivers for PAUS is the study of galaxy groups. 
 Galaxy groups are the observable counterparts to dark matter halos, so detecting galaxy groups can help us infer more about the galaxy-halo connection.
 
@@ -302,6 +342,9 @@ A group finder is an algorithm able to identify galaxy groups having as an input
 One innovative alternative is to develop a group finder based on the Markov CLustering (MCL) algorithm \citep{dongen00}. \cite{stothert18_thesis}, tested the MCL algorithm in real space on a mock galaxy catalogue constructed from an N-body simulation using the GALFORM semi-analytic model \citep{gonzalez14}. His results show that the widely used FoF algorithm is just a subset of MCL. 
 
 The idea for my future work is to use \cite{stothert18_thesis} as a starting point to develop, test and finally apply an MCL group finder able to work in redshift space, allowing for galaxy redshifts with different uncertainties. I will finally apply this new MCL group finder on the PAUS data and if successful it will be possible to run the algorithm on other photometric redshift surveys.
+
+The benefits of having a reliable group finder reflects on a multiplicity of science goals. In the cosmology fields, for example, weak lensing around groups can help to have stronger constraints on cosmological parameters. 
+In the galaxy formation and evolution field, we can study the mass-to-light ratio for dark matter halos in order to measure where the galaxy formation is most efficient. See for example \cite{eke04} and \cite{viola15}. This will allow us to identify Milky Way analogues for a possible deeper observational follow up. 
 
 \bibliography{biblio.bib}
 
